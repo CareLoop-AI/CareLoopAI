@@ -78,16 +78,6 @@ const features = [
     },
 ];
 
-const featuresContainerVariants = {
-    hidden: { opacity: 1 },
-    visible: {
-        opacity: 1,
-        transition: {
-            delayChildren: 0.2,
-            staggerChildren: 0.15,
-        },
-    },
-};
 
 const ACCENT_COLOR_CLASS = 'text-[#F9D000]';
 
@@ -96,7 +86,7 @@ const Features = () => {
     const gridRef = useRef(null);
 
     const headerInView = useInView(headerRef, { once: true, amount: 0.3 });
-    const gridInView = useInView(gridRef, { once: true, amount: 0.1 });
+    // const gridInView = useInView(gridRef, { once: true, amount: 0.1 });
 
     return (
         <div className="min-h-screen bg-gray-950 text-white font-inter overflow-x-hidden relative">

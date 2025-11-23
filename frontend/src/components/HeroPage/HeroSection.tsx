@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '../Header/Navbar';
 import LoginModel from '../Header/LoginModel';
@@ -93,7 +93,7 @@ const HeroSection = () => {
             <Navbar setIsModalOpen={setIsModalOpen} />
             <LoginModel setIsModalOpen={setIsModalOpen} isModalOpen={isModelOpen} />
             {/* Hero Section - flex-grow ensures it takes up all remaining vertical space */}
-            <main className="relative z-10 flex-grow flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 text-center max-w-7xl mx-auto w-full">
+            <main className="relative z-10 flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 text-center max-w-7xl mx-auto w-full">
 
                 {/* Subtitle/Primary Text */}
                 <motion.h1
