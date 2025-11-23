@@ -17,7 +17,7 @@ const featureCardVariants : any = {
     },
 };
 
-const FeatureCard = ({ icon: Icon, title, subtitle, description, index } : any) => {
+const FeatureCard = ({ icon: Icon, title, subtitle, description } : any) => {
     return (
         <motion.div
             className="bg-black p-6 sm:p-8 rounded-xl border border-gray-800 hover:border-lime-400/50 transition duration-300 shadow-xl flex flex-col justify-start h-full"

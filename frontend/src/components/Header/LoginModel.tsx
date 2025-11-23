@@ -87,7 +87,7 @@ const LoginModel = ({ setIsModalOpen, isModalOpen, onLoginSuccess }: {
 
     return (
         <div
-            className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4 ${isModalOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} transition-opacity duration-300`}
+            className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 ${isModalOpen ? 'opacity-100 visible' : 'opacity-0 invisible'} transition-opacity duration-300`}
             onClick={() => setIsModalOpen(false)}
         >
             <div

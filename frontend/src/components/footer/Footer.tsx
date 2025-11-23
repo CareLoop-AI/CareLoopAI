@@ -67,7 +67,7 @@ const Footer = () => {
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className={`flex-grow p-4 rounded-l-full outline-none ${INPUT_FIELD_COLOR} border border-gray-700/50`}
+                                className={` p-4 rounded-l-full outline-none ${INPUT_FIELD_COLOR} border border-gray-700/50`}
                             />
                             <button
                                 className={`flex items-center justify-center px-6 py-4 font-semibold rounded-r-full transition duration-300 ${CTA_BUTTON_COLOR}`}
@@ -84,7 +84,7 @@ const Footer = () => {
                 {/* Middle Section: Massive Logo/Branding (Adjusted for larger size and 'floor' touch) */}
                 {/* We use negative margin (mb-[-5rem] or more) and larger font sizes to push the text down */}
                 <div className="mt-10 overflow-hidden p-0 relative">
-                    <h1 className="m-0 p-0 text-[20vw] md:text-[15vw] lg:text-[200px] font-extrabold text-white text-center leading-none whitespace-nowrap pointer-events-none relative md:bottom-[-1.5rem] lg:bottom-[-1.7rem]">
+                    <h1 className="m-0 p-0 text-[20vw] md:text-[15vw] lg:text-[200px] font-extrabold text-white text-center leading-none whitespace-nowrap pointer-events-none relative lg:bottom-[-1.7rem]">
                         CareLooP
                     </h1>
                 </div>
