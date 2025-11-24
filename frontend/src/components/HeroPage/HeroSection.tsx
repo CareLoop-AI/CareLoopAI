@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '../Header/Navbar';
 import LoginModel from '../Header/LoginModel';
+import FAQSystem from '../FAQSystem/FaqSystem';
 
 // --- Constants ---
 const ACCENT_COLOR = 'text-[#F9D000]';
@@ -84,7 +85,7 @@ const HeroSection = () => {
 
     return (
         // Make the outer div a flex column container to manage screen height
-        <div className="text-white h-screen font-inter overflow-x-hidden flex flex-col absolute inset-0">
+        <div className="text-white h-screen font-inter overflow-x-hidden flex flex-col absolute  inset-0">
             {/* Subtle Grainy Texture Overlay for the dark aesthetic */}
             <div className="absolute inset-0 z-0 opacity-[0.03]" style={{
                 backgroundImage: 'url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48ZmlsdGVyIGlkPSJnIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjY1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2ZmZiIgZmlsdGVyPSJ1cmwoI2cpIiBvcGFjaXR5PSIwLjMiLz48L3N2Zy4=")',
@@ -133,6 +134,7 @@ const HeroSection = () => {
                     </motion.button>
                 </motion.div>
             </main>
+            <FAQSystem />
         </div>
     );
 };

@@ -1,51 +1,95 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
-
-
-const ACCENT_COLOR_CLASS = 'text-lime-400';
-const ACCENT_BG_CLASS = 'bg-lime-400';
-
-const featureCardVariants : any = {
-    hidden: { y: 20, opacity: 0 },
+const cardVariants:any = {
+    hidden: (direction: "left" | "right") => ({
+        opacity: 0,
+        y: 40,
+        x: direction === "left" ? -60 : 60,
+        scale: 0.9,
+    }),
     visible: {
-        y: 0,
         opacity: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
         transition: {
-            duration: 0.6,
-            ease: [0.25, 0.46, 0.45, 0.94],
+            duration: 0.7,
+            ease: [0.22, 0.61, 0.36, 1], // smooth easeOut curve
         },
     },
 };
 
-const FeatureCard = ({ icon: Icon, title, subtitle, description } : any) => {
+const FeatureCard = ({ icon: Icon, title, subtitle, description, index }: any) => {
+    const cardRef = useRef<HTMLDivElement | null>(null);
+
+    // Scroll-based parallax for the image
+    const { scrollYProgress } = useScroll({
+        target: cardRef,
+        offset: ["start end", "end start"], // when card enters & leaves
+    });
+
+    const imageY = useTransform(scrollYProgress, [0, 1], [40, -40]);  // up on scroll
+    const imageScale = useTransform(scrollYProgress, [0, 1], [0.95, 1.05]);
+
+    const direction: "left" | "right" = index % 2 === 0 ? "left" : "right";
+
     return (
         <motion.div
-            className="bg-black p-6 sm:p-8 rounded-xl border border-gray-800 hover:border-lime-400/50 transition duration-300 shadow-xl flex flex-col justify-start h-full"
-            variants={featureCardVariants}
-            whileHover={{ y: -5, boxShadow: "0 10px 20px rgba(190, 242, 100, 0.1)" }}
+            ref={cardRef}
+            className={`relative p-8 rounded-2xl bg-black border border-gray-800 
+        hover:border-lime-400/50 transition-all duration-300 
+        hover:shadow-xl hover:shadow-lime-400/10 group flex flex-col 
+        md:flex-row ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"}
+        gap-6 justify-between`}
+            variants={cardVariants}
+            custom={direction}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ amount: 0.4, once: true }}   // triggers like in the video
+            transition={{
+                duration: 0.7,
+                delay: index * 0.12,
+            }}
         >
-            <div className="flex items-center space-x-4 mb-4">
-                {/* Icon with Neon Circle Effect */}
-                <div className={`p-3 rounded-full border-2 border-lime-400/50 ${ACCENT_BG_CLASS} bg-opacity-10`}>
-                    <Icon className={`w-6 h-6 ${ACCENT_COLOR_CLASS}`} strokeWidth={2.5} />
+            {/* Text side */}
+            <div className="w-full lg:w-[50%]">
+                <div className="mb-6">
+                    <div
+                        className="w-14 h-14 rounded-xl bg-lime-400/10 border border-lime-400/30 
+              flex items-center justify-center 
+              group-hover:bg-lime-400/20 transition-colors duration-300"
+                    >
+                        <Icon className="w-7 h-7 text-[#F9D000]" />
+                    </div>
                 </div>
-                <div className={`text-sm font-semibold uppercase tracking-wider text-gray-400`}>
+
+                <h3 className="text-xl font-bold text-white mb-2 tracking-tight">
+                    {title}
+                </h3>
+
+                <p className="text-sm font-medium text-[#F9D000] mb-4">
                     {subtitle}
-                </div>
+                </p>
+
+                <p className="text-gray-500 leading-relaxed font-sans font-semibold">
+                    {description}
+                </p>
             </div>
 
-            <h3 className="text-2xl font-bold mb-3 text-white tracking-tight">{title}</h3>
-            <p className="text-base text-gray-400 mb-6 flex-grow">{description}</p>
-
-            {/* Footer/Action area */}
-            <div className="flex justify-between items-center pt-4 border-t border-gray-800/50">
-                <span className="text-sm font-medium flex items-center text-lime-400 transition-colors duration-300">
-                    Learn More
-                    <svg className="w-4 h-4 ml-1 transform transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-                </span>
-            </div>
+            {/* Parallax image side */}
+            <motion.div
+                className="hidden lg:block"
+                style={{ y: imageY, scale: imageScale }}
+            >
+                <img
+                    src="./are_you_doctor.webp"
+                    alt=""
+                    className="rounded-2xl pointer-events-none select-none"
+                />
+            </motion.div>
         </motion.div>
     );
-}
+};
 
-export default FeatureCard
+export default FeatureCard;
