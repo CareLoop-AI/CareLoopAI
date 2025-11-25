@@ -6,7 +6,7 @@ import { FAQ_DATA } from "@/utils/FaqUtil";
 import axios from "axios";
 
 
-const API_BASE_URL = 'http://localhost:8081/api/v1/faq';
+//const API_BASE_URL = 'http://localhost:8081/api/v1/faq';
 
 const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
     const [selectedQuestion, setSelectedQuestion] = useState<number | null>(null);
