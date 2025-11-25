@@ -75,6 +75,14 @@ body {
 
 :root {
   --radius: 0.625rem;
+  /* Brand palette */
+  --brand-green-1: #006400;
+  --brand-green-2: #006241;
+  --accent-1: #ff9c01;
+  --accent-2: #F9D000;
+  /* Dark, subtle green-tinted background layers */
+  --app-bg-layer-1: radial-gradient(1200px 600px at 10% 10%, rgba(0, 100, 0, 0.18) 0%, rgba(0, 50, 30, 0.06) 40%, transparent 60%);
+  --app-bg-layer-2: linear-gradient(180deg, #020806 0%, #001317 100%);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -146,7 +154,58 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
+
+  /* Page gradient background class */
+  .app-bg {
+    background-image: var(--app-bg-layer-1), var(--app-bg-layer-2);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: var(--foreground);
+    min-height: 100vh;
+  }
+
+  /* Shiny gradient cards used across the site */
+  .shiny-card {
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(4px) saturate(120%);
+    -webkit-backdrop-filter: blur(4px) saturate(120%);
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+
+  .shiny-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  .shiny-card::after {
+    content: "";
+    position: absolute;
+    left: -50%;
+    top: -40%;
+    width: 220%;
+    height: 60%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.02) 45%, rgba(255, 255, 255, 0) 100%);
+    transform: rotate(25deg);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+}
+
+/* Use accent variables for selection/scrollbar */
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-2);
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--accent-2);
+  color: #000;
 }

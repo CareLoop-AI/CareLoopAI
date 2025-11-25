@@ -12,65 +12,66 @@ const Footer = () => {
     const INPUT_FIELD_COLOR = 'bg-gray-800 text-white focus:ring-0 focus:border-transparent border-none';
 
     return (
-        <footer className="w-full bg-black text-white overflow-hidden">
+        <footer className="w-full bg-black text-white overflow-hidden relative">
             <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative">
                 {/* Top Section: Navigation and CTA/Newsletter */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 border-gray-700">
-
+                <div className="flex flex-wrap gap-8 mx-auto justify-between items-center">
                     {/* Column 1 & 2: Navigation Links */}
-                    <div className="col-span-1 flex justify-between space-x-8 md:space-x-0 md:block">
-                        {navItems.slice(0, 1).map((section) => (
-                            <div key={section.title} className="space-y-2">
-                                <h4 className="text-sm font-bold text-white uppercase tracking-wider">{section.title}</h4>
-                                <ul className="space-y-1 mt-3">
-                                    {section.links.map((link) => (
-                                        <li key={link}>
-                                            <a
-                                                href="#"
-                                                className="text-sm text-gray-400 hover:text-white transition duration-150"
-                                                onClick={(e) => e.preventDefault()}
-                                            >
-                                                {link}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
+                    <div className="flex gap-20">
+                        <div className="col-span-1 flex justify-between space-x-8 md:space-x-0 md:block">
+                            {navItems.slice(0, 1).map((section) => (
+                                <div key={section.title} className="space-y-2">
+                                    <h4 className="text-sm font-bold text-white uppercase tracking-wider">{section.title}</h4>
+                                    <ul className="space-y-1 mt-3">
+                                        {section.links.map((link) => (
+                                            <li key={link}>
+                                                <a
+                                                    href="#"
+                                                    className="text-sm text-gray-400 hover:text-white transition duration-150"
+                                                    onClick={(e) => e.preventDefault()}
+                                                >
+                                                    {link}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
 
-                    <div className="col-span-1 flex justify-between space-x-8 md:space-x-0 md:block">
-                        {navItems.slice(1, 2).map((section) => (
-                            <div key={section.title} className="space-y-2">
-                                <h4 className="text-sm font-bold text-white uppercase tracking-wider">{section.title}</h4>
-                                <ul className="space-y-1 mt-3">
-                                    {section.links.map((link) => (
-                                        <li key={link}>
-                                            <a
-                                                href="#"
-                                                className="text-sm text-gray-400 hover:text-white transition duration-150"
-                                                onClick={(e) => e.preventDefault()}
-                                            >
-                                                {link}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
+                        <div className="col-span-1 flex justify-between space-x-8 md:space-x-0 md:block">
+                            {navItems.slice(1, 2).map((section) => (
+                                <div key={section.title} className="space-y-2">
+                                    <h4 className="text-sm font-bold text-white uppercase tracking-wider">{section.title}</h4>
+                                    <ul className="space-y-1 mt-3">
+                                        {section.links.map((link) => (
+                                            <li key={link}>
+                                                <a
+                                                    href="#"
+                                                    className="text-sm text-gray-400 hover:text-white transition duration-150"
+                                                    onClick={(e) => e.preventDefault()}
+                                                >
+                                                    {link}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Column 3 & 4 (Spanning 2 columns): CTA/Newsletter */}
-                    <div className="col-span-1 md:col-span-2 space-y-4">
+                    <div className="space-y-4">
                         <h4 className="text-xl font-bold text-white">Still have questions?</h4>
                         <div className="flex w-full">
                             <input
                                 type="email"
                                 placeholder="Enter your email"
-                                className={` p-4 rounded-l-full outline-none ${INPUT_FIELD_COLOR} border border-gray-700/50`}
+                                className={`p-4 md:p-4 rounded-l-full outline-none ${INPUT_FIELD_COLOR} border border-gray-700/50`}
                             />
                             <button
-                                className={`flex items-center justify-center px-6 py-4 font-semibold rounded-r-full transition duration-300 ${CTA_BUTTON_COLOR}`}
+                                className={`flex items-center justify-center px-3 md:px-6 py-4 font-semibold rounded-r-full transition duration-300 ${CTA_BUTTON_COLOR}`}
                                 onClick={(e) => e.preventDefault()}
                             >
                                 Send

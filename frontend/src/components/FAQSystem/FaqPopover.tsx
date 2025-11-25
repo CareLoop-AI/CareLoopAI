@@ -1,6 +1,6 @@
 import { AnimatePresence } from "motion/react";
-import { useState } from "react";
-import {motion} from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { X, ChevronRight, MessageSquare, Mail, AlertCircle } from "lucide-react";
 import { FAQ_DATA } from "@/utils/FaqUtil";
 import axios from "axios";
@@ -16,6 +16,23 @@ const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    // Prevent background (body) scrolling when popover is open
+    useEffect(() => {
+        if (isOpen) {
+            // lock body scroll
+            const prev = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+            return () => {
+                document.body.style.overflow = prev || '';
+            };
+        }
+
+        // cleanup when component unmounts or isOpen becomes false
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     const handleQuestionClick = (id: number) => {
         setSelectedQuestion(selectedQuestion === id ? null : id);
@@ -115,10 +132,9 @@ const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50"
                         onClick={onClose}
                     />
-
                     {/* Popover */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -147,7 +163,13 @@ const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                         </div>
 
                         {/* Content */}
-                        <div className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                        <div
+                            className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar"
+                            // Stop propagation so parent scroll handlers (e.g. Lenis) don't scroll the page
+                            onWheel={(e) => e.stopPropagation()}
+                            onTouchMove={(e) => e.stopPropagation()}
+                            style={{ touchAction: 'pan-y' }}
+                        >
                             {!showAskForm ? (
                                 <>
                                     {/* FAQ Questions */}
