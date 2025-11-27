@@ -95,7 +95,7 @@ const ScrollTriggerBoxes: React.FC = () => {
                     </h1>
                 </section>
 
-                <section className="w-full relative z-10 mb-20">
+                <section className="w-full relative z-10 pb-20">
                     {projects.map((project, i) => {
                         const targetScale = 1 - (projects.length - i) * 0.05;
                         return (
@@ -180,7 +180,7 @@ const Card: React.FC<CardProps> = ({
                         {title}
                     </h2>
 
-                    <p className="mt-4 text-base md:text-lg font-light leading-relaxed">
+                    <p className="mt-4 text-base md:text-lg font-sans font-bold text-gray-400 leading-relaxed">
                         {description}
                     </p>
 

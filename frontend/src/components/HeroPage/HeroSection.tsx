@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '../Header/Navbar';
 import LoginModel from '../Header/LoginModel';
+import FAQSystem from '../FAQSystem/FaqSystem';
 
 // --- Constants ---
 const ACCENT_COLOR = 'text-[#F9D000]';
@@ -133,7 +134,7 @@ const HeroSection = () => {
                     </motion.button>
                 </motion.div>
             </main>
-            
+            <FAQSystem />
         </div>
     );
 };

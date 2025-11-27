@@ -1,4 +1,24 @@
+import { motion } from "framer-motion";
+
 const ACCENT_COLOR_CLASS = 'bg-[#F9D000] hover:bg-[#D5E63B] text-black';
+
+const containerVariants = {
+    hidden: {},
+    visible: {
+        transition: {
+            staggerChildren: 0.15, // delay between each word
+        },
+    },
+};
+
+const wordVariants :any = {
+    hidden: { y: 60, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: { duration: 1, ease: "easeOut" },
+    },
+};
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -11,9 +31,12 @@ const Footer = () => {
     const CTA_BUTTON_COLOR = ACCENT_COLOR_CLASS;
     const INPUT_FIELD_COLOR = 'bg-gray-800 text-white focus:ring-0 focus:border-transparent border-none';
 
+    const text = "C a r e L o o p";
+    const words = text.split(" ");
+
     return (
-        <footer className="w-full bg-black text-white overflow-hidden relative">
-            <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative">
+        <footer className="w-full bg-black text-white overflow-hidden relative inset-0 z-50">
+            <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-14 relative">
                 {/* Top Section: Navigation and CTA/Newsletter */}
                 <div className="flex flex-wrap gap-8 mx-auto justify-between items-center">
                     {/* Column 1 & 2: Navigation Links */}
@@ -83,11 +106,25 @@ const Footer = () => {
                 </div>
 
                 {/* Middle Section: Massive Logo/Branding (Adjusted for larger size and 'floor' touch) */}
-                {/* We use negative margin (mb-[-5rem] or more) and larger font sizes to push the text down */}
-                <div className="mt-10 overflow-hidden p-0 relative">
-                    <h1 className="m-0 p-0 text-[20vw] md:text-[15vw] lg:text-[200px] font-extrabold text-white text-center leading-none whitespace-nowrap pointer-events-none relative lg:bottom-[-1.7rem]">
-                        CareLooP
-                    </h1>
+                <div className=" overflow-hidden p-0 relative">
+                    <motion.h1
+                        className="m-0 p-0 text-[20vw] md:text-[15vw] lg:text-[250px] font-extrabold text-white text-center leading-none whitespace-nowrap pointer-events-none relative lg:bottom-[-1.7rem]"
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: false, amount: 0.4 }} // trigger when in view
+                    >
+                        {words.map((word, i) => (
+                            <motion.span
+                                key={i}
+                                variants={wordVariants}
+                                className={`inline-block ${i > 0 ? "ml-2" : ""}`}
+                                aria-hidden
+                            >
+                                {word}
+                            </motion.span>
+                        ))}
+                    </motion.h1>
                 </div>
 
                 {/* Bottom Section: Copyright and Legal Links */}
@@ -98,7 +135,7 @@ const Footer = () => {
                     <div className="flex space-x-4 text-sm order-1 md:order-2">
                         <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-white transition duration-150">Privacy Policy</a>
                         <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-white transition duration-150">Cookies Policy</a>
-                        <p className="text-gray-500">Website by <span className="text-white hover:text-[#EBF742] transition duration-150 cursor-pointer">ByteTown</span></p>
+                        <p className="text-gray-500">Website by <span className="text-white hover:text-[#EBF742] transition duration-150 cursor-pointer">CareLoopAI</span></p>
                     </div>
                 </div>
             </div>

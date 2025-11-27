@@ -4,8 +4,8 @@ import ScrollTriggerBoxes from "./components/Features/ScrollTriggerBoxes";
 import { Particles } from "./components/ui/particles";
 
 import { ReactLenis } from 'lenis/react';
-import FAQSystem from "./components/FAQSystem/FaqSystem";
 import Footer from "./components/footer/Footer";
+import AboutSection from "./components/About/AboutSection";
 
 function App() {
 
@@ -20,9 +20,9 @@ function App() {
             <HeroSection />
           </section>
           <ScrollTriggerBoxes />
+          <AboutSection />
           <Footer />
         </article>
-        <FAQSystem />
       </main>
     </ReactLenis>
   );
