@@ -45,10 +45,13 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
     return (
         <header className="fixed top-0 left-0 right-0 p-4 md:p-8 z-50">
             <div className="max-w-400 mx-auto flex justify-between items-center">
-                <div className="flex items-center space-x-1">
-                    <h1 className="text-3xl font-extrabold tracking-tight text-white">
-                        Care<span className="text-[#F9D000]">Loop</span> AI
-                    </h1>
+                <div className="flex items-center">
+                    <div className="flex justify-center items-center">
+                        <img src="./logo.png" alt="" className='w-12 h-12'/>
+                        <h1 className="text-3xl font-extrabold tracking-tight text-white">
+                            Care<span className="text-[#F9D000]">Loop</span> AI
+                        </h1>
+                    </div>
                 </div>
 
                 {isLoggedIn ? (
