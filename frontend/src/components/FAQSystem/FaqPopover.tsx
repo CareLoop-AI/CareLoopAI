@@ -5,8 +5,7 @@ import { X, ChevronRight, MessageSquare, Mail, AlertCircle } from "lucide-react"
 import { FAQ_DATA } from "@/utils/FaqUtil";
 import axios from "axios";
 
-
-//const API_BASE_URL = 'http://localhost:8081/api/v1/faq';
+const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081/api/v1/faq';
 
 const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
     const [selectedQuestion, setSelectedQuestion] = useState<number | null>(null);
@@ -78,7 +77,7 @@ const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 
         try {
             const response = await axios.post(
-                "http://localhost:8081/api/v1/faq/questions",
+                baseUrl + "/questions",
                 {
                     email: email.trim(),
                     question: question.trim()
