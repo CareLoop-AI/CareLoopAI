@@ -82,7 +82,7 @@ const LoginModel = ({ setIsModalOpen, isModalOpen, onLoginSuccess }: {
 
     const handleGoogleLogin = () => {
         setLoginStatus('loading');
-        window.location.href = 'http://localhost:8081/oauth2/authorization/google';
+        window.location.href = import.meta.env.VITE_OAUTH2_GOOGLE_URL;
     };
 
     return (
