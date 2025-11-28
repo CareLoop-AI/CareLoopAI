@@ -33,7 +33,7 @@ const projects: Project[] = [
         description:
             "Connect instantly with verified local or online doctors via video, audio, or text chat. Prescriptions are automatically stored and synced in your app, enabling instant ordering and follow-up reminders for checkups or lab tests.",
         src: "tree.jpg",
-        link: "./are_you_doctor.webp",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308688/are_you_doctor_ue1ewh.webp",
         color: "#8f89ff",
     },
     {
@@ -57,7 +57,7 @@ const projects: Project[] = [
         description:
             "Our AI intelligently tracks and reminds users for critical health actions: timely medicine intake, scheduling reorders, upcoming regular health checkups, or even gentle hydration alerts to keep you proactive about your health.",
         src: "cactus.jpg",
-        link: "./unnamed.jpg",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308692/unnamed_ifekqd.jpg",
         color: "#fd521a",
     },
     {
@@ -65,7 +65,7 @@ const projects: Project[] = [
         description:
             "Earn 'Healthy Points' for positive actions like timely medicine intake and completing health challenges. Access a community feed to share local health camps and receive pharmacy rewards, fostering a connected, community-driven ecosystem.",
         src: "cactus.jpg",
-        link: "./community_rewards.jpg",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308690/community_rewards_pyocdu.jpg",
         color: "#fd521a",
     },
 ];
