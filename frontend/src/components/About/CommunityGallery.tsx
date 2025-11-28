@@ -63,7 +63,7 @@ const CommunityGallery = () => {
                     className="md:col-span-6 h-[85%] md:row-span-6 rounded-2xl overflow-hidden relative group self-center cursor-pointer"
                 >
                     <img
-                        src="./grid1.jpg"
+                        src="https://res.cloudinary.com/dvkvr88db/image/upload/v1764308693/grid1_bgjcvk.jpg"
                         alt="Happy Patient"
                         className="w-full h-full object-fit object-center transition-transform duration-700 scale-120 group-hover:scale-130"
                     />
