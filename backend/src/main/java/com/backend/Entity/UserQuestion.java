@@ -26,7 +26,6 @@ public class UserQuestion {
     @Column(nullable = false, length = 255)
     private String email;
 
-    @Lob
     @Column(nullable = false)
     private String question;
 
@@ -54,7 +53,6 @@ public class UserQuestion {
     @Column(name = "answered_by")
     private String answeredBy;
 
-    @Lob
     private String answer;
 
 
