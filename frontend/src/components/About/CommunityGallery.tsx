@@ -32,7 +32,7 @@ const CommunityGallery = () => {
                         className="md:row-span-3 h-[50%] rounded-2xl overflow-hidden relative group cursor-pointer"
                     >
                         <img
-                            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=500"
+                            src="https://res.cloudinary.com/dvkvr88db/image/upload/v1764499167/Gemini_Generated_Image_1xgsjz1xgsjz1xgs_jojfkr_c_crop_ar_3_4_zb5jwk.png"
                             alt="Community"
                             className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                         />

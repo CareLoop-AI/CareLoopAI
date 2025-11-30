@@ -5,7 +5,7 @@ import { X, ChevronRight, MessageSquare, Mail, AlertCircle } from "lucide-react"
 import { FAQ_DATA } from "@/utils/FaqUtil";
 import axios from "axios";
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081/api/v1/faq';
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
     const [selectedQuestion, setSelectedQuestion] = useState<number | null>(null);
@@ -163,66 +163,66 @@ const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 
                         {/* Content */}
                         <div
-                            className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar"
+                            className="p-6 max-h-[60vh] overflow-y-auto custom-scrollbar relative"
                             // Stop propagation so parent scroll handlers (e.g. Lenis) don't scroll the page
                             onWheel={(e) => e.stopPropagation()}
                             onTouchMove={(e) => e.stopPropagation()}
                             style={{ touchAction: 'pan-y' }}
                         >
                             {!showAskForm ? (
-                                <>
-                                    {/* FAQ Questions */}
-                                    <div className="space-y-3">
-                                        {FAQ_DATA.map((faq) => (
-                                            <div key={faq.id} className="border border-gray-800 rounded-lg overflow-hidden">
-                                                <button
-                                                    onClick={() => handleQuestionClick(faq.id)}
-                                                    className="w-full p-4 text-left flex items-center justify-between hover:bg-gray-800/50 transition-colors group"
-                                                >
-                                                    <div className="flex-1">
-                                                        <span className="text-xs text-[#F9D000] font-medium mb-1 block">
-                                                            {faq.category}
-                                                        </span>
-                                                        <span className="text-white font-medium text-sm group-hover:text-[#F9D000] transition-colors">
-                                                            {faq.question}
-                                                        </span>
-                                                    </div>
-                                                    <ChevronRight
-                                                        className={`w-5 h-5 text-gray-400 transition-transform ${selectedQuestion === faq.id ? 'rotate-90' : ''
-                                                            }`}
-                                                    />
-                                                </button>
+                                <div className="relative w-full h-full flex flex-col">
+                                    {/* Scrollable FAQ Questions */}
+                                    <div
+                                        className="flex-1 overflow-y-auto custom-scrollbar"
+                                        // Stop propagation so parent scroll handlers (e.g. Lenis) don't scroll the page
+                                        onWheel={(e) => e.stopPropagation()}
+                                        onTouchMove={(e) => e.stopPropagation()}
+                                        style={{ touchAction: 'pan-y' }}
+                                    >
+                                        <div className="space-y-3">
+                                            {FAQ_DATA.map((faq) => (
+                                                <div key={faq.id} className="border border-gray-800 rounded-lg overflow-hidden">
+                                                    <button
+                                                        onClick={() => handleQuestionClick(faq.id)}
+                                                        className="w-full p-4 text-left flex items-center justify-between hover:bg-gray-800/50 transition-colors group"
+                                                    >
+                                                        <div className="flex-1">
+                                                            <span className="text-xs text-[#F9D000] font-medium mb-1 block">
+                                                                {faq.category}
+                                                            </span>
+                                                            <span className="text-white font-medium text-sm group-hover:text-[#F9D000] transition-colors">
+                                                                {faq.question}
+                                                            </span>
+                                                        </div>
+                                                        <ChevronRight
+                                                            className={`w-5 h-5 text-gray-400 transition-transform ${selectedQuestion === faq.id ? 'rotate-90' : ''
+                                                                }`}
+                                                        />
+                                                    </button>
 
-                                                <AnimatePresence>
-                                                    {selectedQuestion === faq.id && (
-                                                        <motion.div
-                                                            initial={{ height: 0, opacity: 0 }}
-                                                            animate={{ height: 'auto', opacity: 1 }}
-                                                            exit={{ height: 0, opacity: 0 }}
-                                                            transition={{ duration: 0.3 }}
-                                                            className="overflow-hidden"
-                                                        >
-                                                            <div className="p-4 pt-0 text-gray-300 text-sm leading-relaxed border-t border-gray-800">
-                                                                {faq.answer}
-                                                            </div>
-                                                        </motion.div>
-                                                    )}
-                                                </AnimatePresence>
-                                            </div>
-                                        ))}
+                                                    <AnimatePresence>
+                                                        {selectedQuestion === faq.id && (
+                                                            <motion.div
+                                                                initial={{ height: 0, opacity: 0 }}
+                                                                animate={{ height: 'auto', opacity: 1 }}
+                                                                exit={{ height: 0, opacity: 0 }}
+                                                                transition={{ duration: 0.3 }}
+                                                                className="overflow-hidden"
+                                                            >
+                                                                <div className="p-4 pt-0 text-gray-400 text-sm leading-relaxed border-t border-gray-800 font-sans font-semibold">
+                                                                    {faq.answer}
+                                                                </div>
+                                                            </motion.div>
+                                                        )}
+                                                    </AnimatePresence>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
 
-                                    {/* Ask Question Button */}
-                                    <motion.button
-                                        onClick={handleAskClick}
-                                        className="w-full mt-6 bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-fuchsia-600 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                    >
-                                        <MessageSquare className="w-5 h-5" />
-                                        Ask a Question
-                                    </motion.button>
-                                </>
+                                    {/* Ask Question Button - fixed at bottom of this card (not scrolling) */}
+                                    
+                                </div>
                             ) : (
                                 <>
                                     {/* Ask Question Form */}
@@ -284,7 +284,7 @@ const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                                 <button
                                                     onClick={handleSubmit}
                                                     disabled={loading}
-                                                    className="flex-1 bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-fuchsia-600 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                                    className="flex-1 bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white py-3 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-fuchsia-600 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
                                                 >
                                                     {loading ? (
                                                         <>
@@ -318,6 +318,19 @@ const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                 </>
                             )}
                         </div>
+                        {
+                            !showAskForm && (
+                                <motion.button
+                                    onClick={handleAskClick}
+                                    className="w-full bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white py-4 px-6 rounded-lg font-semibold hover:from-indigo-700 hover:to-fuchsia-600 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg sticky bottom-0 cursor-pointer"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <MessageSquare className="w-5 h-5" />
+                                    Ask a Question
+                                </motion.button>
+                            )
+                        }
                     </motion.div>
                 </>
             )}
