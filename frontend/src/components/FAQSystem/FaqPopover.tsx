@@ -77,7 +77,7 @@ const FAQPopover = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 
         try {
             const response = await axios.post(
-                baseUrl + "/questions",
+                baseUrl + "api/v1/faq/questions",
                 {
                     email: email.trim(),
                     question: question.trim()
