@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { isAuthenticated, getUserData, logout } from '../../utils/auth';
 import { motion } from 'framer-motion';
 
-
 export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) => void }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userData, setUserData] = useState<{ userId: string | null; name: string | null; picture: string | null }>({
@@ -20,6 +19,8 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
         if (loggedIn) {
             const data = getUserData();
             setUserData(data);
+        } else {
+            setUserData({ userId: null, name: null, picture: null });
         }
     };
 
@@ -47,7 +48,7 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
             <div className="max-w-400 mx-auto flex justify-between items-center">
                 <div className="flex items-center">
                     <div className="flex justify-center items-center">
-                        <img src="https://res.cloudinary.com/dvkvr88db/image/upload/v1764308690/logo_qbqijt.png" alt="" className='w-12 h-12'/>
+                        <img src="https://res.cloudinary.com/dvkvr88db/image/upload/v1764308690/logo_qbqijt.png" alt="" className='w-12 h-12' />
                         <h1 className="text-3xl font-extrabold tracking-tight text-white">
                             Care<span className="text-[#F9D000]">Loop</span> AI
                         </h1>
@@ -61,23 +62,29 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
                             className="flex items-center space-x-2 hover:opacity-80 transition duration-200"
                         >
                             <img
-                                src={userData.picture ? decodeURIComponent(userData.picture) : undefined}
+                                src={userData.picture || undefined}
                                 alt={userData.name || 'User'}
                                 className="w-10 h-10 rounded-full border-2 border-gray-300 transition duration-200 object-cover"
                             />
                         </button>
-                        
 
                         {showDropdown && (
                             <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
                                 <div className="px-4 py-3 border-b border-gray-200">
                                     <div className="flex items-center space-x-3">
                                         <img
-                                            src={userData.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name || 'User')}&background=F9D000&color=000`}
+                                            src={
+                                                userData.picture ||
+                                                `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                                    userData.name || 'User'
+                                                )}&background=F9D000&color=000`
+                                            }
                                             alt={userData.name || 'User'}
                                             className="w-12 h-12 rounded-full object-cover"
                                             onError={(e) => {
-                                                e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name || 'User')}&background=F9D000&color=000`;
+                                                e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                                                    userData.name || 'User'
+                                                )}&background=F9D000&color=000`;
                                             }}
                                         />
                                         <div className="flex-1 min-w-0">

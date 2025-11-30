@@ -74,8 +74,13 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             response.addCookie(pictureCookie);
         }
 
-        // Redirect back to home page with success parameter
-        String redirectUrl = "https://careloopai.co.in/?login=success";
+
+        String redirectUrl = "https://www.careloopai.co.in/?login=success"
+                + "&userId=" + loginResponseDto.getUserId()
+                + (name != null ? "&name=" + URLEncoder.encode(name, StandardCharsets.UTF_8) : "")
+                + (picture != null ? "&picture=" + URLEncoder.encode(picture, StandardCharsets.UTF_8) : "");
+
         response.sendRedirect(redirectUrl);
+
     }
 }

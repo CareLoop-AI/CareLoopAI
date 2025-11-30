@@ -47,13 +47,24 @@ const LoginModel = ({ setIsModalOpen, isModalOpen, onLoginSuccess }: {
         if (loginParam === 'success') {
             setLoginStatus('success');
 
-            // Trigger confetti celebration! 🎉
+            // 🎉 Confetti
             triggerConfetti();
 
-            // Store userId in localStorage from cookie
-            const userId = getCookie('userId');
-            if (userId) {
-                localStorage.setItem('userId', userId);
+            // Read user info from URL query
+            const userIdFromQuery = urlParams.get('userId');
+            const nameFromQuery = urlParams.get('name');
+            const pictureFromQuery = urlParams.get('picture');
+
+            if (userIdFromQuery) {
+                localStorage.setItem('userId', userIdFromQuery);
+            }
+
+            if (nameFromQuery) {
+                localStorage.setItem('userName', decodeURIComponent(nameFromQuery));
+            }
+
+            if (pictureFromQuery) {
+                localStorage.setItem('userPicture', decodeURIComponent(pictureFromQuery));
             }
 
             // Clean up URL
@@ -64,21 +75,21 @@ const LoginModel = ({ setIsModalOpen, isModalOpen, onLoginSuccess }: {
                 onLoginSuccess();
             }
 
-            // Auto-close modal after 3 seconds (to match confetti duration)
             setTimeout(() => {
                 setIsModalOpen(false);
                 setLoginStatus('idle');
                 window.location.reload();
-            }, 3000); // Changed to 3 seconds
+            }, 3000);
         }
     }, [setIsModalOpen, onLoginSuccess]);
 
-    const getCookie = (name: string): string | null => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
-        return null;
-    };
+
+    // const getCookie = (name: string): string | null => {
+    //     const value = `; ${document.cookie}`;
+    //     const parts = value.split(`; ${name}=`);
+    //     if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+    //     return null;
+    // };
 
     const handleGoogleLogin = () => {
         setLoginStatus('loading');
