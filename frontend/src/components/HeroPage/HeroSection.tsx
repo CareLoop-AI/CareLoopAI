@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { Navbar } from '../Header/Navbar';
 import LoginModel from '../Header/LoginModel';
 import FAQSystem from '../FAQSystem/FaqSystem';
+import {Link} from "react-router-dom"
+
+const MotionLink = motion(Link);
 
 // --- Constants ---
 const ACCENT_COLOR = 'text-[#F9D000]';
@@ -115,23 +118,23 @@ const HeroSection = () => {
                     initial="hidden"
                     animate="show"
                 >
-                    <motion.button
-                        //onClick={() => handleAction('Features')}
-                        className={`relative py-3 px-8 rounded-xl font-bold text-white transition duration-300 ease-in-out transform shadow-lg ${GRADIENT_BUTTON}`}
+                    <MotionLink
+                        onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
+                        className={`relative py-3 px-8 rounded-xl font-bold text-white transition duration-300 ease-in-out transform shadow-lg ${GRADIENT_BUTTON} cursor-pointer`}
                         whileHover={{ scale: 1.05, rotate: -1 }}
                         whileTap={{ scale: 0.95 }}
                     >
                         Features
-                    </motion.button>
-
-                    <motion.button
-                        //onClick={() => handleAction('About')}
-                        className="relative py-3 px-8 rounded-xl font-bold text-white border-2 border-[#F9D000] transition duration-300 ease-in-out hover:bg-white/10"
+                    </MotionLink>
+                    
+                    <MotionLink
+                        onClick={() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })}
+                        className="relative py-3 px-8 rounded-xl font-bold text-white border-2 border-[#F9D000] transition duration-300 ease-in-out hover:bg-white/10 cursor-pointer"
                         whileHover={{ scale: 1.05, rotate: 1 }}
                         whileTap={{ scale: 0.95 }}
                     >
                         About Us
-                    </motion.button>
+                    </MotionLink>
                 </motion.div>
             </main>
             <FAQSystem />

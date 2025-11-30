@@ -99,7 +99,7 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
                                 </div>
                                 <button
                                     onClick={handleLogout}
-                                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-150 font-medium"
+                                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-150 font-medium cursor-pointer"
                                 >
                                     🚪 Logout
                                 </button>
@@ -112,11 +112,11 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
                             e.preventDefault();
                             setIsModalOpen(true);
                         }}
-                        className="px-4 py-2 rounded-lg text-sm font-semibold border-2 border-[#F9D000] text-white transition-colors duration-300 hover:bg-[#F9D000] hover:text-gray-950"
+                        className="px-4 py-2 rounded-lg text-sm font-semibold border-2 border-[#F9D000] text-white transition-colors duration-300 hover:bg-[#F9D000] hover:text-gray-950 cursor-pointer"
                         whileHover={{ scale: 1.05, boxShadow: "0 0 10px rgba(190, 242, 100, 0.5)" }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        Login
+                        Get Started
                     </motion.div>
                 )}
             </div>
