@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 
-const LoginModel = ({ setIsModalOpen, isModalOpen, onLoginSuccess }: {
+const LoginModel = ({ setIsModalOpen, isModalOpen }: {
     setIsModalOpen: (isOpen: boolean) => void,
     isModalOpen: boolean,
-    onLoginSuccess?: () => void
 }) => {
     const [loginStatus, setLoginStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
@@ -70,10 +69,6 @@ const LoginModel = ({ setIsModalOpen, isModalOpen, onLoginSuccess }: {
             // Clean up URL
             window.history.replaceState({}, document.title, window.location.pathname);
 
-            // Trigger parent component refresh
-            if (onLoginSuccess) {
-                onLoginSuccess();
-            }
 
             setTimeout(() => {
                 setIsModalOpen(false);
@@ -81,15 +76,8 @@ const LoginModel = ({ setIsModalOpen, isModalOpen, onLoginSuccess }: {
                 window.location.reload();
             }, 3000);
         }
-    }, [setIsModalOpen, onLoginSuccess]);
+    }, [setIsModalOpen]);
 
-
-    // const getCookie = (name: string): string | null => {
-    //     const value = `; ${document.cookie}`;
-    //     const parts = value.split(`; ${name}=`);
-    //     if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
-    //     return null;
-    // };
 
     const handleGoogleLogin = () => {
         setLoginStatus('loading');
@@ -139,7 +127,7 @@ const LoginModel = ({ setIsModalOpen, isModalOpen, onLoginSuccess }: {
                         </p>
 
                         <button
-                            className="w-full flex items-center justify-center px-6 py-3 border border-gray-300 rounded-lg shadow-md text-base font-medium text-gray-700 bg-white hover:bg-gray-50 transition duration-150 ease-in-out hover:shadow-lg active:scale-[.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full flex items-center justify-center px-6 py-3 border border-gray-300 rounded-lg shadow-md text-base font-medium text-gray-700 bg-white hover:bg-gray-50 transition duration-150 ease-in-out hover:shadow-lg active:scale-[.98] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                             onClick={handleGoogleLogin}
                             disabled={loginStatus === 'loading'}
                         >
