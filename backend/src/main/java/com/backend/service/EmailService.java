@@ -1,28 +1,28 @@
 package com.backend.service;
 
 import com.backend.Entity.UserQuestion;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
+import reactor.core.publisher.Mono;
 
 import java.time.format.DateTimeFormatter;
-
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class EmailService {
 
-    private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
+    private final WebClient mailerWebClient;
 
     @Value("${careloop.support.email:shawabhijit370@gmail.com}")
     private String supportEmail;
@@ -34,7 +34,10 @@ public class EmailService {
     private String appName;
 
     @Value("${spring.mail.username}")
-    private String fromEmail;
+    private String fromEmail; // keep same property - should be your verified MailerSend sender
+
+    @Value("${mailersend.api.token}")
+    private String mailerSendApiToken;
 
     /**
      * Send notification email to support team when new question is submitted
@@ -42,14 +45,6 @@ public class EmailService {
     @Async
     public void sendNewQuestionNotification(UserQuestion question) {
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
-            helper.setFrom(fromEmail);
-            helper.setTo(supportEmail);
-            helper.setSubject(String.format("[%s] New Question from %s", appName, question.getEmail()));
-
-            // Create email context
             Context context = new Context();
             context.setVariable("questionId", question.getId());
             context.setVariable("userEmail", question.getEmail());
@@ -58,25 +53,25 @@ public class EmailService {
             context.setVariable("userIp", question.getUserIp() != null ? question.getUserIp() : "N/A");
             context.setVariable("appName", appName);
 
-            // If you're using Thymeleaf templates (recommended)
-            //String htmlContent = templateEngine.process("email/new-question", context);
-
-            // For now, using simple HTML
             String htmlContent = buildNewQuestionEmailHtml(context);
+            String subject = String.format("[%s] New Question from %s", appName, question.getEmail());
 
-            helper.setText(htmlContent, true);
+            // recipients: supportEmail and supportEmail2 (if set)
+            List<String> recipients = new ArrayList<>();
+            recipients.add(supportEmail);
+            if (supportEmail2 != null && !supportEmail2.isBlank() && !supportEmail2.equals(supportEmail)) {
+                recipients.add(supportEmail2);
+            }
 
-            mailSender.send(message);
-            log.info("New question notification email sent successfully to {} for question ID: {}",
-                    supportEmail, question.getId());
+            sendEmailViaMailerSend(recipients, subject, htmlContent)
+                    .doOnSuccess(resp -> log.info("New question notification email sent successfully to {} for question ID: {}",
+                            recipients, question.getId()))
+                    .doOnError(err -> log.error("Failed to send new question notification email for question ID: {}",
+                            question.getId(), err))
+                    .subscribe();
 
-            mailSender.send(message);
-            log.info("New question notification email sent successfully to {} for question ID: {}",
-                    supportEmail2, question.getId());
-
-        } catch (MessagingException e) {
-            log.error("Failed to send new question notification email for question ID: {}",
-                    question.getId(), e);
+        } catch (Exception e) {
+            log.error("Failed to prepare new question notification email for question ID: {}", question.getId(), e);
         }
     }
 
@@ -86,30 +81,72 @@ public class EmailService {
     @Async
     public void sendConfirmationToUser(UserQuestion question) {
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-
-            helper.setFrom(fromEmail);
-            helper.setTo(question.getEmail());
-            helper.setSubject(String.format("We received your question - %s", appName));
-
             Context context = new Context();
             context.setVariable("appName", appName);
             context.setVariable("question", question.getQuestion());
             context.setVariable("submittedAt", question.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")));
 
             String htmlContent = buildUserConfirmationEmailHtml(context);
+            String subject = String.format("We received your question - %s", appName);
 
-            helper.setText(htmlContent, true);
+            sendEmailViaMailerSend(Collections.singletonList(question.getEmail()), subject, htmlContent)
+                    .doOnSuccess(resp -> log.info("Confirmation email sent successfully to {} for question ID: {}", question.getEmail(), question.getId()))
+                    .doOnError(err -> log.error("Failed to send confirmation email to user {} for question ID: {}", question.getEmail(), question.getId(), err))
+                    .subscribe();
 
-            mailSender.send(message);
-            log.info("Confirmation email sent successfully to {} for question ID: {}",
-                    question.getEmail(), question.getId());
-
-        } catch (MessagingException e) {
-            log.error("Failed to send confirmation email to user {} for question ID: {}",
-                    question.getEmail(), question.getId(), e);
+        } catch (Exception e) {
+            log.error("Failed to prepare confirmation email to user {} for question ID: {}", question.getEmail(), question.getId(), e);
         }
+    }
+
+    /**
+     * Internal helper: send email via MailerSend API.
+     * Returns a Mono<String> with response body (or error).
+     */
+    private Mono<String> sendEmailViaMailerSend(List<String> toEmails, String subject, String htmlContent) {
+        // Build "personalizations" structure expected by MailerSend
+        // MailerSend expects: { "from": {"email": "...","name":"..."} , "to": [{"email":"..."}], "subject": "...", "html": "..."}
+        Map<String, Object> payload = new LinkedHashMap<>();
+
+        Map<String, String> from = new HashMap<>();
+        from.put("email", fromEmail);
+        from.put("name", appName);
+        payload.put("from", from);
+
+        List<Map<String, String>> to = new ArrayList<>();
+        for (String r : toEmails) {
+            Map<String, String> recipient = new HashMap<>();
+            recipient.put("email", r);
+            to.add(recipient);
+        }
+        payload.put("to", to);
+
+        payload.put("subject", subject);
+        payload.put("html", htmlContent);
+
+        // Optionally: add plain text fallback
+        payload.put("text", stripHtmlToPlainText(htmlContent));
+
+        // headers or tags can be added if desired
+        // payload.put("tags", Collections.singletonList("careloop"));
+
+        return mailerWebClient.post()
+                .uri("/v1/email")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + mailerSendApiToken)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(payload)
+                .retrieve()
+                .bodyToMono(String.class)
+                .doOnError(err -> log.error("MailerSend API request failed: {}", err.getMessage(), err));
+    }
+
+    // Simple html->text fallback (very small utility)
+    private String stripHtmlToPlainText(String html) {
+        return html.replaceAll("\\<.*?\\>", "")
+                .replaceAll("&nbsp;", " ")
+                .replaceAll("&amp;", "&")
+                .replaceAll("\\s{2,}", " ")
+                .trim();
     }
 
     /**
