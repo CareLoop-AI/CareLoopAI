@@ -53,7 +53,7 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173" , "https://careloopai.co.in")); // frontend
+        configuration.setAllowedOrigins(List.of("http://localhost:5173" , "https://careloopai.co.in" , "https://www.careloopai.co.in")); // frontend
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
