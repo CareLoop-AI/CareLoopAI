@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '../Header/Navbar';
 import LoginModel from '../Header/LoginModel';
-import FAQSystem from '../FAQSystem/FaqSystem';
+// import FAQSystem from '../FAQSystem/FaqSystem';
 import {Link} from "react-router-dom"
+import ChatbotPopover from '../chatBot/ChatbotPopover';
+
 
 const MotionLink = motion(Link);
 
@@ -137,7 +139,8 @@ const HeroSection = () => {
                     </MotionLink>
                 </motion.div>
             </main>
-            <FAQSystem />
+            {/* <FAQSystem /> */}
+            <ChatbotPopover />
         </div>
     );
 };
