@@ -81,6 +81,5 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                 + (picture != null ? "&picture=" + URLEncoder.encode(picture, StandardCharsets.UTF_8) : "");
 
         response.sendRedirect(redirectUrl);
-
     }
 }
