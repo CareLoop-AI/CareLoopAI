@@ -2,42 +2,53 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
-from transformers import pipeline
 import numpy as np
 import json
+import os
+import requests
 from typing import List, Optional
 import logging
+from dotenv import load_dotenv
 
-# Configure logging
+# Load environment variables
+load_dotenv()
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize FastAPI app
+# FastAPI Initialization
 app = FastAPI(
-    title="CareLoop Chatbot NLP Service",
-    description="Hugging Face powered NLP service for question answering",
-    version="1.0.0"
+    title="CareLoop NLP Service",
+    description="CareLoop NLP + Llama 3.1 Answering System",
+    version="3.1.0"
 )
 
-# Add CORS middleware
+# CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Update with your Spring Boot URL in production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Global variables
+# GLOBALS
 model = None
-qa_model = None
 qa_database = []
-SIMILARITY_THRESHOLD_HIGH = 0.85  # Direct answer threshold
-SIMILARITY_THRESHOLD_LOW = 0.70   # Generate answer threshold
 
-# Pydantic models for request/response
+SIM_THRESHOLD_HIGH = 0.85
+SIM_THRESHOLD_MED = 0.70
+
+# HuggingFace Llama API settings
+HF_API_TOKEN = os.getenv("HF_API_TOKEN")
+HF_MODEL_ID = "meta-llama/Llama-3.1-8B-Instruct"
+HF_API_URL = "https://router.huggingface.co/v1/chat/completions"
+
+
+# Data models
 class QuestionRequest(BaseModel):
     question: str
+
 
 class AnswerResponse(BaseModel):
     answer: str
@@ -45,265 +56,200 @@ class AnswerResponse(BaseModel):
     matched_question: str
     topic: Optional[str] = None
 
+
 class HealthResponse(BaseModel):
     status: str
     model_loaded: bool
     total_questions: int
 
-# Load model and data on startup
+
+# STARTUP: Load embedding model + dataset
 @app.on_event("startup")
-async def load_model_and_data():
-    """
-    Load Hugging Face models and Q&A database on startup
-    """
-    global model, qa_model, qa_database
-    
-    try:
-        logger.info("🚀 Loading sentence-transformers model...")
-        model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-        logger.info("✅ Sentence model loaded successfully!")
-        
-        logger.info("🚀 Loading QA generation model...")
-        qa_model = pipeline(
-            "text2text-generation",
-            model="google/flan-t5-base",
-            max_length=512,
-            device=-1  # CPU
-        )
-        logger.info("✅ QA model loaded successfully!")
-        
-        logger.info("📚 Loading Q&A database...")
-        with open('qa_data_with_embeddings.json', 'r', encoding='utf-8') as f:
-            qa_database = json.load(f)
-        logger.info(f"✅ Loaded {len(qa_database)} Q&A pairs!")
-        
-    except Exception as e:
-        logger.error(f"❌ Error during startup: {str(e)}")
-        raise
+async def startup_load():
+    global model, qa_database
 
-def cosine_similarity(embedding1, embedding2):
-    """
-    Calculate cosine similarity between two embeddings
-    """
-    embedding1 = np.array(embedding1)
-    embedding2 = np.array(embedding2)
-    
-    dot_product = np.dot(embedding1, embedding2)
-    norm1 = np.linalg.norm(embedding1)
-    norm2 = np.linalg.norm(embedding2)
-    
-    if norm1 == 0 or norm2 == 0:
+    logger.info("🚀 Loading sentence-transformer model...")
+    model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+
+    logger.info("📚 Loading Q&A database...")
+    with open("qa_data_with_embeddings.json", "r", encoding="utf-8") as f:
+        qa_database = json.load(f)
+
+    logger.info(f"✅ Loaded {len(qa_database)} Q&A entries")
+
+
+# COSINE SIMILARITY
+def cosine_similarity(a, b):
+    a = np.array(a)
+    b = np.array(b)
+    if np.linalg.norm(a) == 0 or np.linalg.norm(b) == 0:
         return 0.0
-    
-    return float(dot_product / (norm1 * norm2))
+    return float(np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b)))
 
-def find_best_match(question_embedding):
-    """
-    Find the best matching question from database
-    Returns: (best_match_qa, similarity_score)
-    """
-    best_match = None
+
+# FIND BEST MATCH FROM DATABASE
+def find_best_match(q_emb):
+    best = None
     best_score = 0.0
-    
+
     for qa in qa_database:
-        score = cosine_similarity(question_embedding, qa['embedding'])
-        
+        score = cosine_similarity(q_emb, qa["embedding"])
         if score > best_score:
             best_score = score
-            best_match = qa
-    
-    return best_match, best_score
+            best = qa
 
-def get_context_for_generation(best_match, top_n=3):
-    """
-    Get context from top similar answers for text generation
-    """
-    context_parts = []
-    
-    # Add the best match
-    if best_match:
-        context_parts.append(f"Topic: {best_match['topic']}\nQ: {best_match['question']}\nA: {best_match['answer']}")
-    
-    # Add related answers from same topic
-    same_topic_answers = [
-        qa for qa in qa_database 
-        if qa['topic'] == best_match['topic'] and qa['id'] != best_match['id']
-    ][:top_n-1]
-    
-    for qa in same_topic_answers:
-        context_parts.append(f"Q: {qa['question']}\nA: {qa['answer']}")
-    
-    return "\n\n".join(context_parts)
+    return best, best_score
 
-def generate_answer_from_context(question, context):
-    """
-    Generate answer using the QA model with provided context
-    """
-    try:
-        prompt = f"""Based on the following information, answer this question: {question}
 
-Context:
-{context}
+# BUILD DYNAMIC SYSTEM PROMPT
+def build_system_prompt(user_question, best_match):
+    topic = best_match["topic"]
 
-Answer:"""
-        
-        result = qa_model(prompt, max_length=200, min_length=30, do_sample=False)
-        generated_answer = result[0]['generated_text'].strip()
-        
-        return generated_answer
-    except Exception as e:
-        logger.error(f"Error generating answer: {str(e)}")
-        return None
+    related_examples = [
+        qa for qa in qa_database if qa["topic"] == topic
+    ][:5]
 
-# API Endpoints
+    examples_text = "\n\n".join([
+        f"Q: {qa['question']}\nA: {qa['answer']}"
+        for qa in related_examples
+    ])
 
-@app.get("/", response_model=dict)
-async def root():
+    # FINAL improved system prompt
+    system_prompt = f"""
+You are CareLoop AI Assistant.
+
+CareLoop is a medicine-delivery platform in India.  
+We provide:
+- doorstep medicine delivery  
+- prescription uploads  
+- partnered pharmacies  
+- PCI-DSS secure payment  
+- chat-based ordering  
+
+🛑 IMPORTANT RULES FOR ANSWERING:
+1. If the user asks about services CareLoop does NOT provide  
+   (food delivery, grocery, electronics, rides, cab booking, clothing, etc.),  
+   ALWAYS reply clearly:
+   👉 "CareLoop only delivers medicines. We do not deliver food or other non-medical items."
+
+2. NEVER say "I cannot answer that".  
+   ALWAYS give the correct clarification.
+
+3. Use only the knowledge provided in the examples below.  
+   No hallucinations.
+
+4. Stay short, friendly and factual.
+
+Detected Topic: {topic}
+
+Relevant Knowledge Examples:
+{examples_text}
+
+Now provide the best possible answer to the user's question.
+""".strip()
+
+    return system_prompt
+
+
+# CALL LLAMA 3.1 MODEL
+def call_llama(system_prompt, user_question, mode):
     """
-    Root endpoint
+    mode = "medium" or "low"
+    medium → slightly higher temperature
+    low → very strict, grounded
     """
-    return {
-        "message": "CareLoop Chatbot NLP Service",
-        "version": "1.0.0",
-        "endpoints": {
-            "/health": "Health check",
-            "/answer": "Get answer for a question (POST)",
-            "/encode": "Encode a question to embedding (POST)"
-        }
+    temperature = 0.3 if mode == "medium" else 0.15
+
+    headers = {
+        "Authorization": f"Bearer {HF_API_TOKEN}",
+        "Content-Type": "application/json"
     }
 
+    payload = {
+        "model": HF_MODEL_ID,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_question}
+        ],
+        "max_tokens": 250,
+        "temperature": temperature
+    }
+
+    response = requests.post(HF_API_URL, headers=headers, json=payload)
+
+    if response.status_code != 200:
+        logger.error(f"Llama API error: {response.text}")
+        return None
+
+    return response.json()["choices"][0]["message"]["content"]
+
+
+# MAIN ANSWER ROUTE
+@app.post("/answer", response_model=AnswerResponse)
+async def answer(req: QuestionRequest):
+    global model, qa_database
+
+    if not model or not qa_database:
+        raise HTTPException(status_code=500, detail="Service initialization failed")
+
+    logger.info(f"📥 Question received: {req.question}")
+
+    # Encode question
+    q_emb = model.encode(req.question)
+
+    # Find best match
+    best, score = find_best_match(q_emb)
+    logger.info(f"🔍 Similarity score = {score:.3f}")
+
+    # HIGH CONFIDENCE → Direct stored answer
+    if score >= SIM_THRESHOLD_HIGH:
+        logger.info("✔ High similarity → returning database answer")
+        return AnswerResponse(
+            answer=best["answer"],
+            confidence=round(score, 3),
+            matched_question=best["question"],
+            topic=best["topic"]
+        )
+
+    # For both low + medium → use Llama
+    logger.info("🤖 Using Llama for answer generation")
+
+    system_prompt = build_system_prompt(req.question, best)
+
+    if score >= SIM_THRESHOLD_MED:
+        # medium mode
+        llama_answer = call_llama(system_prompt, req.question, mode="medium")
+    else:
+        # strict mode
+        llama_answer = call_llama(system_prompt, req.question, mode="low")
+
+    if llama_answer is None:
+        llama_answer = best["answer"]  # fallback
+
+    return AnswerResponse(
+        answer=llama_answer,
+        confidence=round(score, 3),
+        matched_question="Llama Generated",
+        topic=best["topic"]
+    )
+
+
+# HEALTH CHECK
 @app.get("/health", response_model=HealthResponse)
-async def health_check():
-    """
-    Health check endpoint
-    """
+async def health():
     return HealthResponse(
-        status="healthy" if model is not None else "unhealthy",
+        status="healthy" if model else "unhealthy",
         model_loaded=model is not None,
         total_questions=len(qa_database)
     )
 
-@app.post("/encode", response_model=dict)
-async def encode_question(request: QuestionRequest):
-    """
-    Encode a question into an embedding vector
-    """
-    try:
-        if model is None:
-            raise HTTPException(status_code=500, detail="Model not loaded")
-        
-        embedding = model.encode(request.question).tolist()
-        
-        return {
-            "question": request.question,
-            "embedding": embedding,
-            "dimension": len(embedding)
-        }
-    
-    except Exception as e:
-        logger.error(f"Error encoding question: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/answer", response_model=AnswerResponse)
-async def get_answer(request: QuestionRequest):
-    """
-    Main endpoint: Get answer for a user question
-    Supports both direct matching and contextual generation
-    """
-    try:
-        if model is None or qa_model is None or len(qa_database) == 0:
-            raise HTTPException(status_code=500, detail="Service not ready")
-        
-        logger.info(f"📥 Received question: {request.question}")
-        
-        # Step 1: Encode the user's question
-        question_embedding = model.encode(request.question)
-        
-        # Step 2: Find best matching question
-        best_match, similarity_score = find_best_match(question_embedding)
-        
-        logger.info(f"🔍 Best match score: {similarity_score:.3f}")
-        
-        # Step 3: Decision based on similarity score
-        if similarity_score >= SIMILARITY_THRESHOLD_HIGH:
-            # High confidence - return direct answer
-            logger.info(f"✅ High confidence match! Returning direct answer")
-            
-            return AnswerResponse(
-                answer=best_match['answer'],
-                confidence=round(similarity_score, 3),
-                matched_question=best_match['question'],
-                topic=best_match['topic']
-            )
-            
-        elif similarity_score >= SIMILARITY_THRESHOLD_LOW:
-            # Medium confidence - generate answer from context
-            logger.info(f"🤖 Medium confidence. Generating answer from context...")
-            
-            context = get_context_for_generation(best_match, top_n=3)
-            generated_answer = generate_answer_from_context(request.question, context)
-            
-            if generated_answer:
-                logger.info(f"✅ Successfully generated answer")
-                
-                return AnswerResponse(
-                    answer=generated_answer,
-                    confidence=round(similarity_score, 3),
-                    matched_question=f"Generated from: {best_match['question']}",
-                    topic=best_match['topic']
-                )
-            else:
-                # Fallback to direct answer if generation fails
-                logger.warning(f"⚠️ Generation failed, returning direct answer")
-                
-                return AnswerResponse(
-                    answer=best_match['answer'],
-                    confidence=round(similarity_score, 3),
-                    matched_question=best_match['question'],
-                    topic=best_match['topic']
-                )
-        else:
-            # Low confidence - return fallback message
-            logger.info(f"❌ No confident match found (score: {similarity_score:.3f})")
-            
-            return AnswerResponse(
-                answer="I apologize, but I don't have information about that specific question. Please try rephrasing or select from our predefined questions.",
-                confidence=0.0,
-                matched_question="No match found",
-                topic=None
-            )
-    
-    except Exception as e:
-        logger.error(f"Error processing question: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+@app.get("/")
+async def root():
+    return {"service": "CareLoop NLP", "version": "3.1.0"}
 
-@app.post("/batch-answer", response_model=List[AnswerResponse])
-async def get_batch_answers(questions: List[str]):
-    """
-    Process multiple questions at once (optional endpoint)
-    """
-    try:
-        results = []
-        
-        for question in questions:
-            request = QuestionRequest(question=question)
-            answer = await get_answer(request)
-            results.append(answer)
-        
-        return results
-    
-    except Exception as e:
-        logger.error(f"Error in batch processing: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 # Run with: uvicorn app:app --host 0.0.0.0 --port 7860
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=7860)
-
-
-
-
-# curl -X POST http://localhost:7860/answer \
-#   -H "Content-Type: application/json" \
-#   -d '{"question":"Does CareLoop store my payment information?"}'
