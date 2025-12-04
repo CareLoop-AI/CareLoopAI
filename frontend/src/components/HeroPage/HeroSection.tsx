@@ -88,6 +88,7 @@ import { isAuthenticated } from '@/utils/auth';
 //     );
 // };
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081';
 
 const HeroSection = () => {
     const [isModelOpen, setIsModalOpen] = useState(false);
@@ -100,7 +101,7 @@ const HeroSection = () => {
         console.log('Email submitted for early access:', email);
         setIsLoading(true);
         try {
-            const url = "http://localhost:8081/auth/user/login/email";
+            const url = baseUrl+"auth/user/login/email";
             console.log("Calling:", url);
             const response = await fetch(url, {
                 method: 'POST',
@@ -183,10 +184,6 @@ const HeroSection = () => {
                     fast delivery, while AI helps you stay proactive with daily wellness.
                 </motion.p>
 
-                {/* Phone Mockup with Chat Interface */}
-                {/* <PhoneScreen /> */}
-
-                {/* Feature Pills */}
                 <motion.div
                     className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-10"
                     initial={{ opacity: 0, y: 20 }}
