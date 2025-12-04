@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
+import { Instagram, Linkedin, Mail, X } from "lucide-react";
 
-const ACCENT_COLOR_CLASS = 'bg-[#F9D000] hover:bg-[#D5E63B] text-black';
 
 const containerVariants = {
     hidden: {},
@@ -11,7 +11,7 @@ const containerVariants = {
     },
 };
 
-const wordVariants :any = {
+const wordVariants: any = {
     hidden: { y: 60, opacity: 0 },
     visible: {
         y: 0,
@@ -26,10 +26,6 @@ const Footer = () => {
         { title: "Technology", links: ["Products", "Software Suite", "Accessories"] },
         { title: "Expertise", links: ["Key Features", "Case Studies", "Our Team"] },
     ];
-
-    // Custom yellow color for the Send button
-    const CTA_BUTTON_COLOR = ACCENT_COLOR_CLASS;
-    const INPUT_FIELD_COLOR = 'bg-gray-800 text-white focus:ring-0 focus:border-transparent border-none';
 
     const text = "C a r e L o o p";
     const words = text.split(" ");
@@ -84,23 +80,38 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Column 3 & 4 (Spanning 2 columns): CTA/Newsletter */}
+                    {/* Column 3 & 4 (Spanning 2 columns): SOCIAL LINKS (replaced email section) */}
+                    {/* Column 3 & 4 (Spanning 2 columns): SOCIAL LINKS (replacing email section) */}
                     <div className="space-y-4">
                         <h4 className="text-xl font-bold text-white">Still have questions?</h4>
-                        <div className="flex w-full">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className={`p-4 md:p-4 rounded-l-full outline-none ${INPUT_FIELD_COLOR} border border-gray-700/50`}
-                            />
-                            <button
-                                className={`flex items-center justify-center px-3 md:px-6 py-4 font-semibold rounded-r-full transition duration-300 ${CTA_BUTTON_COLOR}`}
-                                onClick={(e) => e.preventDefault()}
-                            >
-                                Send
-                                {/* Arrow icon */}
-                                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </button>
+                        <div className="flex items-center gap-4">
+                            {[
+                                {
+                                    name: "Twitter", url: "https://x.com/CareLoopAI", icon: X
+                                },
+                                {
+                                    name: "LinkedIn", url: "https://linkedin.com/", icon: Linkedin
+                                },
+                                {
+                                    name: "Instagram", url: "https://instagram.com/", icon: Instagram
+                                },
+                                {
+                                    name: "Email", url: "mailto:contact@careloopai.co.in", icon: Mail
+                                },
+                            ].map((item) => (
+                                <a
+                                    key={item.name}
+                                    href={item.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={item.name}
+                                    className="w-12 h-12 flex items-center justify-center rounded-2xl 
+                           bg-black text-white hover:text-black hover:bg-[#F9D000] 
+                           transition duration-300 shadow-md"
+                                >
+                                    <item.icon className="w-6 h-6" />
+                                </a>
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -135,7 +146,7 @@ const Footer = () => {
                     <div className="flex space-x-4 text-sm order-1 md:order-2">
                         <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-white transition duration-150">Privacy Policy</a>
                         <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-white transition duration-150">Cookies Policy</a>
-                        <p className="text-gray-500">Website by <span className="text-white hover:text-[#EBF742] transition duration-150 cursor-pointer">CareLoopAI</span></p>
+                        <p className="text-gray-500">Website by <span className="text-white hover:text-[#EBF742] transition duration-150 cursor-pointer">- CareLoopAI</span></p>
                     </div>
                 </div>
             </div>

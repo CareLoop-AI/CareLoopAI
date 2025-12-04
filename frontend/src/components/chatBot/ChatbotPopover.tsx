@@ -43,7 +43,9 @@ const BotButton: React.FC<BotButtonProps> = ({ onClick, isOpen }) => {
             <Button
                 onClick={onClick}
                 size="icon"
-                className="h-12 w-12 rounded-full bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white shadow-2xl hover:shadow-indigo-500/50 transition-all duration-300"
+                className="h-12 w-12 rounded-full relative overflow-hidden 
+bg-gradient-to-b from-[#00B6C7]  to-[#F9D000] 
+transition-all duration-300 text-white hover:shadow-indigo-500/50"
             >
                 {isOpen ? <X className="h-6 w-6" /> : <Bot className="h-full w-full" />}
             </Button>
@@ -103,7 +105,7 @@ const ChatbotPopover: React.FC = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch(import.meta.env.VITE_API_BASE_URL+"api/v1/chatbot/ask" , {
+            const response = await fetch(import.meta.env.VITE_API_BASE_URL + "api/v1/chatbot/ask", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

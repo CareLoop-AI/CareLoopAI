@@ -62,9 +62,9 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
                             className="flex items-center space-x-2 hover:opacity-80 transition duration-200"
                         >
                             <img
-                                src={userData.picture || undefined}
+                                src={userData.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.name || 'User')}&background=F9D000&color=000`}
                                 alt={userData.name || 'User'}
-                                className="w-10 h-10 rounded-full border-2 border-gray-300 transition duration-200 object-cover"
+                                className="w-10 h-10 rounded-full transition duration-200 object-cover"
                             />
                         </button>
 
@@ -116,7 +116,7 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
                         whileHover={{ scale: 1.05, boxShadow: "0 0 10px rgba(190, 242, 100, 0.5)" }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        Get Started
+                        Join Now
                     </motion.div>
                 )}
             </div>
