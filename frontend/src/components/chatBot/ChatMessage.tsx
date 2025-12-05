@@ -45,7 +45,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isBot }) => {
             className={`flex gap-3 mb-4 ${isBot ? '' : 'flex-row-reverse'}`}
         >
             <Avatar className={`flex-shrink-0 h-8 w-8 ${isBot
-                    ? 'bg-gradient-to-br from-indigo-500 to-fuchsia-500'
+                ? 'bg-gradient-to-r from-[#005C9E]  to-[#F9D000]'
                     : 'bg-gradient-to-br from-[#F9D000] to-yellow-500'
                 }`}>
                 <AvatarFallback className="bg-transparent">
@@ -56,7 +56,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isBot }) => {
             <div className={`flex flex-col max-w-[75%] ${isBot ? '' : 'items-end'}`}>
                 <div className={`px-4 py-3 rounded-2xl shadow-md ${isBot
                         ? 'bg-white text-gray-800 rounded-tl-none border border-gray-200'
-                        : 'bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white rounded-tr-none'
+                        : ' text-black rounded-tr-none'
                     }`}>
                     <p className="text-sm leading-relaxed">
                         {displayedText}

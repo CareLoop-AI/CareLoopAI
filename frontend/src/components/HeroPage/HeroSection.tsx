@@ -1,92 +1,11 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Navbar } from '../Header/Navbar';
-import LoginModel from '../Header/LoginModel';
-// import FAQSystem from '../FAQSystem/FaqSystem';
-// import { Link } from "react-router-dom"
+import LoginModel, { triggerConfetti } from '../Header/LoginModel';
 import ChatbotPopover from '../chatBot/ChatbotPopover';
 import { Loader2 } from 'lucide-react';
 import { isAuthenticated } from '@/utils/auth';
 
-
-
-
-// const MotionLink = motion(Link);
-
-// --- Constants ---
-// const ACCENT_COLOR = 'text-[#F9D000]';
-// const GRADIENT_BUTTON = 'bg-gradient-to-r from-indigo-600 to-fuchsia-500 hover:from-indigo-700 hover:to-fuchsia-600';
-
-// const container = {
-//     hidden: { opacity: 0 },
-//     show: {
-//         opacity: 1,
-//         transition: {
-//             staggerChildren: 0.1,
-//             delayChildren: 0.5,
-//         },
-//     },
-// };
-
-// const primaryText = "CareLoop (Your AI-Driven Healthcare Ecosystem)";
-// const highlightedTagline = "One platform where people can access care, medicine, and human help — effortlessly.";
-
-// const HighlightedTagline = ({ text } : any) => {
-//     const parts = text.split('—');
-//     const mainPart = parts[0].trim().split(' ');
-//     const secondaryPart = parts.length > 1 ? parts[1].trim() : '';
-
-//     // Custom stagger container for the headline
-//     const headlineContainer = {
-//         hidden: { opacity: 0 },
-//         visible: {
-//             opacity: 1,
-//             transition: {
-//                 staggerChildren: 0.05,
-//                 delayChildren: 0.2,
-//             },
-//         },
-//     };
-
-//     const word = {
-//         hidden: { y: 20, opacity: 0 },
-//         visible: {
-//             y: 0,
-//             opacity: 1,
-//         },
-//     };
-
-//     return (
-//         <motion.div
-//             className="text-white text-4xl sm:text-6xl lg:text-[5.5rem] font-extrabold"
-//             variants={headlineContainer}
-//             initial="hidden"
-//             animate="visible"
-//         >
-//             <div className="flex flex-wrap justify-center items-baseline">
-//                 {mainPart.map((wordText : any, index : any) => (
-//                     <motion.span
-//                         key={index}
-//                         variants={word}
-//                         className={`mr-2 ${index % 2 === 0 ? ACCENT_COLOR : 'text-white'}`} // Alternating color for high contrast
-//                     >
-//                         {wordText}
-//                     </motion.span>
-//                 ))}
-//             </div>
-//             {secondaryPart && (
-//                 <motion.p
-//                     className="mt-4 text-lg sm:text-2xl tracking-tight  text-gray-300 max-w-2xl mx-auto"
-//                     initial={{ opacity: 0 }}
-//                     animate={{ opacity: 1 }}
-//                     transition={{ delay: 1.5, duration: 0.8 }}
-//                 >
-//                     — effortlessly. ❤️
-//                 </motion.p>
-//             )}
-//         </motion.div>
-//     );
-// };
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081';
 
@@ -113,12 +32,12 @@ const HeroSection = () => {
             if (!response.ok) {
                 throw new Error(`Request failed: ${response.status} ${response.statusText}`);
             }
+            triggerConfetti();
             const data = JSON.parse(text);
             //console.log("Server response:", data);
             const userIdFromQuery = data?.userId;
             const nameFromQuery = data?.username;
             const jwtFromQuery = data?.jwt;
-
             if (userIdFromQuery) {
                 localStorage.setItem('userId', userIdFromQuery);
             }
@@ -130,6 +49,10 @@ const HeroSection = () => {
             if (jwtFromQuery) {
                 localStorage.setItem('jwt', jwtFromQuery);
             }
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
         } catch (error) {
             console.error('Error fetching answer:', error);
         }
@@ -148,7 +71,7 @@ const HeroSection = () => {
         <div className="relative h-screen text-white font-sans overflow-hidden">
 
             {/* Dark overlay for better text readability */}
-            <div className="absolute inset-0 z-0 bg-[#0a0e1a]/40" />
+            <div className="absolute inset-0 z-0 w-full"/>
 
             <Navbar setIsModalOpen={setIsModalOpen} />
             <LoginModel setIsModalOpen={setIsModalOpen} isModalOpen={isModelOpen} />
@@ -190,7 +113,7 @@ const HeroSection = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9, duration: 0.6 }}
                 >
-                    <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-5 py-3 rounded-full border border-white/20 shadow-xl">
+                    <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-3 py-2 md:px-5 md:py-3 rounded-full border border-white/20 shadow-xl">
                         <div className="text-2xl">📋</div>
                         <div className="text-left">
                             <div className="text-orange-400 font-bold text-sm">AI Prescription</div>
@@ -198,7 +121,7 @@ const HeroSection = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-5 py-3 rounded-full border border-white/20 shadow-xl">
+                    <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-3 py-2 md:px-5 md:py-3 rounded-full border border-white/20 shadow-xl">
                         <div className="text-2xl">📍</div>
                         <div className="text-left">
                             <div className="text-pink-400 font-bold text-sm">Local Helper</div>
@@ -206,7 +129,7 @@ const HeroSection = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-5 py-3 rounded-full border border-white/20 shadow-xl">
+                    <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-3 py-2 md:px-5 md:py-3 rounded-full border border-white/20 shadow-xl">
                         <div className="text-2xl">💜</div>
                         <div className="text-left">
                             <div className="text-purple-400 font-bold text-sm">Personalized</div>
@@ -218,7 +141,7 @@ const HeroSection = () => {
                 {
                     !logedinUser ? (
                         <motion.div
-                            className="flex flex-col sm:flex-row items-stretch gap-0 w-full max-w-3xl"
+                            className="flex flex-col sm:flex-row items-stretch gap-2 md:gap-0 w-full max-w-3xl"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.2, duration: 0.6 }}

@@ -119,7 +119,7 @@ const Footer = () => {
                 {/* Middle Section: Massive Logo/Branding (Adjusted for larger size and 'floor' touch) */}
                 <div className=" overflow-hidden p-0 relative">
                     <motion.h1
-                        className="m-0 p-0 text-[20vw] md:text-[15vw] lg:text-[250px] font-extrabold text-white text-center leading-none whitespace-nowrap pointer-events-none relative lg:bottom-[-1.7rem]"
+                        className="m-0 p-0 text-[18vw] md:text-[15vw] lg:text-[250px] font-extrabold text-white text-center leading-none whitespace-nowrap pointer-events-none relative lg:bottom-[-1.7rem]"
                         variants={containerVariants}
                         initial="hidden"
                         whileInView="visible"

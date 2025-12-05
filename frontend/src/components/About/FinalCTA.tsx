@@ -14,7 +14,7 @@ const FinalCTA = () => {
     }, [logedinUser])
     return (
         <div className="relative bg-black pt-10 pb-20">
-            <div className="relative mx-4 md:mx-12 overflow-hidden rounded-3xl md:rounded-tr-[20rem] md:rounded-bl-[20rem] bg-gradient-to-r from-indigo-600 to-fuchsia-500 hover:from-indigo-700 hover:to-fuchsia-600 border border-neutral-800">
+            <div className="relative mx-4 md:mx-12 overflow-hidden rounded-3xl md:rounded-tr-[20rem] md:rounded-bl-[20rem] bg-gradient-to-r from-[#005C9E]  to-[#F9D000] border border-neutral-800">
                 <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#F9D000] opacity-5 blur-[100px] pointer-events-none" />
 
                 <div className="px-6 py-20 md:py-32 flex flex-col items-center text-center relative z-10">

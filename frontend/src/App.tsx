@@ -6,6 +6,8 @@ import { Particles } from "./components/ui/particles";
 import { ReactLenis } from 'lenis/react';
 import Footer from "./components/footer/Footer";
 import AboutSection from "./components/About/AboutSection";
+import CommunityGallery from "./components/About/CommunityGallery";
+import FinalCTA from "./components/About/FinalCTA";
 
 function App() {
 
@@ -19,8 +21,12 @@ function App() {
           <section className='text-white m-h-screen w-full bg-transparent grid place-content-center sticky top-0'>
             <HeroSection />
           </section>
+          <section className='text-white w-full bg-black relative z-50 '>
+            <AboutSection />
+          </section>
           <ScrollTriggerBoxes />
-          <AboutSection />
+          <CommunityGallery />
+          <FinalCTA />
           <Footer />
         </article>
       </main>

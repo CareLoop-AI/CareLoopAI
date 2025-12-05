@@ -5,7 +5,7 @@ const CommunityGallery = () => {
     return (
         <section className="px-6 md:px-20 py-24 bg-black relative">
             {/* Text Header Content */}
-            <div className="md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto text-center mb-20 md:mb-46">
+            <div className="md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto text-center mb-2 md:mb-46">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
