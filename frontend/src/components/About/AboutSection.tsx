@@ -9,8 +9,6 @@ import {
     Bot,
     ArrowUpRight,
 } from 'lucide-react';
-import FinalCTA from './FinalCTA';
-import CommunityGallery from './CommunityGallery';
 
 // --- Types ---
 interface FeatureItem {
@@ -70,8 +68,7 @@ const Hero = () => {
     };
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center px-4 md:px-12 pt-32 pb-20">
-
+        <div className="relative min-h-screen flex flex-col items-center px-4 md:px-12 pt-20 pb-20">
             {/* Top Header Section */}
             <div className="text-center max-w-4xl mx-auto mb-16 z-10">
                 <motion.div
@@ -122,27 +119,32 @@ const Hero = () => {
                     transition={{ delay: 0.3 }}
                     className="md:col-span-7 h-[300px] md:h-[400px] bg-neutral-900 rounded-[2.5rem] relative overflow-hidden group border border-neutral-800"
                 >
-                    {/* Abstract Mountain/Graph Representation */}
-                    <div className="absolute inset-x-0 bottom-0 h-3/4 flex items-end justify-center px-10 gap-4">
-                        {[40, 70, 50, 90, 60, 80, 45].map((h, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ height: 0 }}
-                                whileInView={{ height: `${h}%` }}
-                                viewport={{ once: true, amount: 0.15 }}
-                                transition={{ duration: 1, delay: 0.5 + (i * 0.1) }}
-                                className="w-full bg-gradient-to-t from-neutral-800 to-[#F9D000]/20 rounded-t-2xl border-t border-[#F9D000]/30"
-                            />
-                        ))}
+                    {/* VIDEO — fills the card */}
+                    <div className="absolute inset-0 overflow-hidden rounded-[2.5rem]">
+                        <video
+                            src="https://res.cloudinary.com/dvkvr88db/video/upload/v1764926005/connections_online-video-cutter.com_gnz15t.mp4"
+                            className="w-full h-full object-cover"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                        // Optional: try to autoplay programmatically if needed
+                        // onLoadedMetadata={e => (e.currentTarget.play().catch(() => {}))}
+                        />
                     </div>
-                    <div className="absolute top-8 right-8">
+
+                    {/* Icon (above video) */}
+                    <div className="absolute top-8 right-8 z-10">
                         <Activity className="text-[#F9D000] w-12 h-12" />
                     </div>
-                    <div className="absolute top-8 left-8 max-w-xs">
+
+                    {/* Text overlay (above video) */}
+                    <div className="absolute top-8 left-8 max-w-xs z-10">
                         <h3 className="text-white text-2xl font-bold mb-2">Connected Ecosystem</h3>
                         <p className="text-neutral-400 text-sm">Pharmacies, Helpers, and Doctors in one sync.</p>
                     </div>
                 </motion.div>
+
 
                 {/* Row 2, Col 1 (Wide Content/Tabs) - Represents "Mission/Vision Text Area" */}
                 <motion.div
@@ -249,8 +251,8 @@ const CoreVision = () => {
                             <div className="w-16 h-16 rounded-2xl bg-[#F9D000]/10 flex items-center justify-center mb-6 text-[#F9D000]">
                                 <item.icon size={32} />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                            <p className="text-neutral-400 text-sm leading-relaxed">{item.desc}</p>
+                            <h3 className="text-xl md:text-2xl font-bold text-white mb-3">{item.title}</h3>
+                            <p className="text-neutral-500 text-sm md:text-xl leading-relaxed">{item.desc}</p>
                         </Card>
                     </motion.div>
                 ))}
@@ -263,14 +265,13 @@ const CoreVision = () => {
 
 
 const AboutSection = () => {
+    
     return (
-        <div id='about' className='w-full bg-amber-100 relative z-10 selection:bg-[#F9D000] selection:text-black overflow-hidden'>
+        <div id='about' className='w-full bg-black relative z-50 selection:bg-[#F9D000] selection:text-black overflow-hidden'>
             <div className="pt-20 min-h-screen w-full bg-black rounded-t-[3rem] md:rounded-t-[4rem] overflow-hidden relative shadow-2xl md:mt-10 mx-auto ">
                 <div className='max-w-[95rem] mx-auto'>
-                    <Hero />
                     <CoreVision />
-                    <CommunityGallery />
-                    <FinalCTA />
+                    <Hero />
                 </div>
                 <div className="h-10 bg-black" />
             </div>
@@ -279,3 +280,15 @@ const AboutSection = () => {
 };
 
 export default AboutSection;
+
+
+{/* {[40, 70, 50, 90, 60, 80, 45].map((h, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ height: 0 }}
+                                whileInView={{ height: `${h}%` }}
+                                viewport={{ once: true, amount: 0.15 }}
+                                transition={{ duration: 1, delay: 0.5 + (i * 0.1) }}
+                                className="w-full bg-gradient-to-t from-neutral-800 to-[#F9D000]/20 rounded-t-2xl border-t border-[#F9D000]/30"
+                            />
+                        ))} */}

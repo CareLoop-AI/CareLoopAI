@@ -170,7 +170,7 @@ const ChatbotPopover: React.FC = () => {
                     >
                         <Card className="h-[500px] p-0 flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 shadow-2xl rounded-3xl overflow-hidden border-none">
                             {/* Header */}
-                            <CardHeader className="bg-gradient-to-r from-indigo-600 to-fuchsia-500 p-5 relative overflow-hidden">
+                            <CardHeader className="bg-gradient-to-r from-[#005C9E]  to-[#F9D000] p-5 relative overflow-hidden">
                                 <div className="absolute inset-0 bg-black/10" />
                                 <div className="relative z-10 flex items-center justify-between">
                                     <div className="flex items-center gap-3">
@@ -200,7 +200,7 @@ const ChatbotPopover: React.FC = () => {
                             {/* Messages Area */}
                             <CardContent
                                 ref={chatContainerRef}
-                                className="flex-1 overflow-y-auto p-5 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+                                className="flex-1 overflow-y-auto p-5 scroll-hide"
                                 onWheel={handleWheel}
                             >
                                 {messages.map((msg, idx) => (
@@ -213,7 +213,7 @@ const ChatbotPopover: React.FC = () => {
                                         animate={{ opacity: 1 }}
                                         className="flex gap-3 mb-4"
                                     >
-                                        <Avatar className="h-8 w-8 bg-gradient-to-br from-indigo-500 to-fuchsia-500">
+                                        <Avatar className="h-8 w-8 bg-gradient-to-r from-[#005C9E]  to-[#F9D000]">
                                             <AvatarFallback className="bg-transparent">
                                                 <Bot className="h-5 w-5 text-white" />
                                             </AvatarFallback>
@@ -244,7 +244,7 @@ const ChatbotPopover: React.FC = () => {
                                             onClick={() => handleSendMessage()}
                                             disabled={!input.trim() || isLoading}
                                             size="icon"
-                                            className="bg-gradient-to-r from-indigo-600 to-fuchsia-500 text-white rounded-xl shadow-lg hover:shadow-indigo-500/50 transition-all duration-200"
+                                            className="bg-gradient-to-r from-[#005C9E]  to-[#F9D000] text-white rounded-xl shadow-lg hover:shadow-indigo-500/50 transition-all duration-200"
                                         >
                                             <Send className="h-5 w-5" />
                                         </Button>

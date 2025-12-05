@@ -32,7 +32,7 @@ export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
     // Outer full-viewport section (does not increase page height)
     <div ref={containerRef} className={cn("relative z-0 w-full md:h-screen", className)}>
       {/* sticky inner keeps text pinned while the page scrolls */}
-      <div className={"sticky top-0 mx-auto flex h-screen w-full items-center bg-transparent md:px-6 py-12 overflow-hidden"}>
+      <div className={"sticky top-0 mx-auto flex h-screen w-full items-center bg-transparent md:px-6 md:py-12 overflow-hidden"}>
         <span className={"flex flex-wrap gap-2 text-[10px] font-bold text-neutral-300 md:text-2xl lg:text-2xl xl:text-4xl justify-center items-center"}>
           {words.map((word, i) => {
             const start = i / words.length

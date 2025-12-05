@@ -30,6 +30,10 @@ body {
   border-radius: 4px;
 }
 
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
 ::selection {
   background: #F9D000;
   color: #000;
