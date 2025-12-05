@@ -30,10 +30,6 @@ public class AuthService {
                 .providerType(authProviderType)
                 .build();
 
-//        if(authProviderType == AuthProviderType.EMAIL) {
-//            user.setPassword(passwordEncoder.encode(signupRequestDto.getPassword()));
-//        }
-
         user = userRepo.save(user);
 
         return user;
@@ -63,7 +59,7 @@ public class AuthService {
             throw new BadCredentialsException("This email is already registered with provider "+emailUser.getProviderType());
         }
 
-        LoginResponseDto loginResponseDto = new LoginResponseDto(authUtil.generateAccessToken(user), user.getId());
+        LoginResponseDto loginResponseDto = new LoginResponseDto(authUtil.generateAccessToken(user), user.getId() , email);
         return ResponseEntity.ok(loginResponseDto);
     }
 }
