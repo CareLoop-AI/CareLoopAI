@@ -14,7 +14,7 @@ function App() {
   return (
     // enable basic smooth scrolling
     <ReactLenis root options={{ duration: 1.2 }}>
-      <main className=" bg-black ">
+      <main className=" bg-black">
         {/* Particles should be fixed so they cover the whole viewport and stay behind content */}
         <Particles className="fixed inset-0 h-screen w-screen pointer-events-none z-0" />
         <article className="relative z-10">

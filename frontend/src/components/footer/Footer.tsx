@@ -32,11 +32,11 @@ const Footer = () => {
 
     return (
         <footer className="w-full bg-black text-white overflow-hidden relative inset-0 z-50">
-            <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-14 relative">
+            <div className=" px-4 sm:px-6 lg:px-8 py-12 md:py-14 relative">
                 {/* Top Section: Navigation and CTA/Newsletter */}
-                <div className="flex flex-wrap gap-8 mx-auto justify-between items-center">
+                <div className="flex flex-wrap gap-8 mx-auto justify-between items-center mb-20">
                     {/* Column 1 & 2: Navigation Links */}
-                    <div className="flex gap-20">
+                    <div className="flex gap-30">
                         <div className="col-span-1 flex justify-between space-x-8 md:space-x-0 md:block">
                             {navItems.slice(0, 1).map((section) => (
                                 <div key={section.title} className="space-y-2">
@@ -119,7 +119,7 @@ const Footer = () => {
                 {/* Middle Section: Massive Logo/Branding (Adjusted for larger size and 'floor' touch) */}
                 <div className=" overflow-hidden p-0 relative">
                     <motion.h1
-                        className="m-0 p-0 text-[18vw] md:text-[15vw] lg:text-[250px] font-extrabold text-white text-center leading-none whitespace-nowrap pointer-events-none relative lg:bottom-[-1.7rem]"
+                        className="m-0 p-0 text-[18vw] md:text-[15vw] lg:text-[250px] 2xl:text-[300px] font-extrabold text-white text-center leading-none whitespace-nowrap pointer-events-none relative lg:bottom-[-1.7rem]"
                         variants={containerVariants}
                         initial="hidden"
                         whileInView="visible"

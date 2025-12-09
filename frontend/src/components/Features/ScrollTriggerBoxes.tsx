@@ -37,7 +37,7 @@ const ScrollTriggerBoxes: React.FC = () => {
                     </h1>
                 </section>
 
-                <section className="w-full relative z-10 pb-20 border-none">
+                <section className="max-w-[90rem] mx-auto relative z-10 pb-20 border-none">
                     {projects.map((project, i) => {
                         const targetScale = 1 - (projects.length - i) * 0.05;
                         return (
