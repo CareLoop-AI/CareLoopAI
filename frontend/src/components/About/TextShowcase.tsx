@@ -9,7 +9,7 @@ const TextShowcase = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
             >
-                <TextReveal className="text-neutral-300 font-sans font-bold capitalize leading-relaxed">
+                <TextReveal className="text-neutral-300 capitalize leading-relaxed">
                     With CareLoop AI comprehensive suite of features, your personal health management reaches new heights of efficiency.
                     By integrating chat-based medicine ordering with intelligent helper delegation,
                     we ensure that no prescription goes unfilled and no urgent need goes unmet. From instant doctor consultations to automated

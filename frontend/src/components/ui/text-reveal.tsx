@@ -60,7 +60,7 @@ const Word: FC<WordProps> = ({ children, progress, range }) => {
       <span className="absolute inset-0 opacity-30 text-neutral-500">{children}</span>
       <motion.span
         style={{ opacity, y }}
-        className={"relative inline-block bg-gradient-to-r from-[#F9D000] to-[#F2AA00] bg-clip-text text-transparent"}
+        className={"relative inline-block text-gray-200"}
       >
         {children}
       </motion.span>
