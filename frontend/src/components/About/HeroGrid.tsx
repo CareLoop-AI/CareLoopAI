@@ -8,7 +8,7 @@ const HeroGrid = () => {
 
     const content = {
         mission: {
-            text: "We're building MedSync to empower every local pharmacy and make healthcare more human, accessible, and community-driven. Most apps overlook small stores; we connect them.",
+            text: "We're building CareLoop to empower every local pharmacy and make healthcare more human, accessible, and community-driven. Most apps overlook small stores; we connect them.",
             bullets: ["Empowering Local Pharmacies", "Human-Centric Healthcare", "Community Driven"]
         },
         vision: {
@@ -154,7 +154,7 @@ const HeroGrid = () => {
                         className="text-5xl md:text-7xl font-bold text-white leading-tight"
                     >
                         Healthcare That Feels <br />
-                        <span className="text-[#F9D000] italic">Human</span> & Accessible
+                        <span className="bg-gradient-to-r from-[#F9D000] to-[#F2AA00] bg-clip-text text-transparent italic">Human</span> & Accessible
                     </motion.h1>
                 </div>
 
@@ -225,8 +225,8 @@ const HeroGrid = () => {
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab as any)}
-                                    className={`px-6 py-4 rounded-full text-left text-sm font-bold transition-all duration-300 border ${activeTab === tab
-                                        ? 'bg-[#F9D000] text-black border-[#F9D000]'
+                                    className={`px-6 py-4 rounded-full text-left text-sm font-bold transition-all duration-300 ${activeTab === tab
+                                        ? 'bg-gradient-to-r from-[#F9D000] to-[#F2AA00] text-black'
                                         : 'bg-transparent text-neutral-400 border-neutral-700 hover:border-neutral-500'
                                         }`}
                                 >
@@ -259,7 +259,7 @@ const HeroGrid = () => {
                                 </motion.div>
                             </AnimatePresence>
 
-                            <button className="mt-8 group flex items-center gap-2 text-white border border-neutral-700 rounded-full px-6 py-3 w-fit hover:bg-[#F9D000] hover:text-black hover:border-[#F9D000] transition-all">
+                            <button className="mt-8 group flex items-center gap-2 text-white border border-neutral-700 rounded-full px-6 py-3 w-fit hover:bg-gradient-to-r hover:from-[#F9D000] hover:to-[#F2AA00] hover:text-black hover:border-[#F9D000] transition-all">
                                 <span>Explore Now</span>
                                 <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                             </button>

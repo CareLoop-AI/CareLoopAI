@@ -8,7 +8,7 @@ const SectionHeading = ({ children, align = "center" }: { children: React.ReactN
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`text-3xl md:text-5xl font-bold mb-2 text-[#F9D000] tracking-tight ${align === "left" ? "text-left" : "text-center"}`}
+            className={`text-3xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-[#F9D000] to-[#F2AA00] bg-clip-text text-transparent tracking-tight ${align === "left" ? "text-left" : "text-center"} z-50`}
         >
             {children}
         </motion.h2>
@@ -147,7 +147,7 @@ const CoreVision = () => {
                 `}
             </style>
 
-            <section className="px-6 md:px-20 py-24 bg-neutral-900/20 mt-5 md:mt-20">
+            <section className="px-6 md:px-20 pt-24  bg-black ">
                 <SectionHeading>The Execution Engine</SectionHeading>
                 <div className="max-w-2xl mx-auto text-center mb-16 text-neutral-400">
                     We are building a solid, defensible foundation.
@@ -164,7 +164,7 @@ const CoreVision = () => {
                             transition={{ delay: idx * 0.1 }}
                             className="vision-card-glow"
                         >
-                            <Card className="h-full flex flex-col items-center text-center">
+                            <Card className="h-full flex flex-col items-center text-center bg-[linear-gradient(to_bottom,rgba(60,60,60,0.55)_0%,rgba(20,20,20,1)_100%)]">
                                 <div className="icon-wrapper w-16 h-16 rounded-2xl bg-[#F9D000]/10 flex items-center justify-center mb-6 text-[#F9D000] transition-all duration-300">
                                     <item.icon size={32} />
                                 </div>

@@ -45,7 +45,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, isBot }) => {
             className={`flex gap-3 mb-4 ${isBot ? '' : 'flex-row-reverse'}`}
         >
             <Avatar className={`flex-shrink-0 h-8 w-8 ${isBot
-                ? 'bg-gradient-to-r from-[#005C9E]  to-[#F9D000]'
+                ? 'bg-gradient-to-b from-[#0339fd]  to-[#4096ec]'
                     : 'bg-gradient-to-br from-[#F9D000] to-yellow-500'
                 }`}>
                 <AvatarFallback className="bg-transparent">

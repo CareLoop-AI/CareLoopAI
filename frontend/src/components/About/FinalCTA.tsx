@@ -49,7 +49,7 @@ const FinalCTA = () => {
                                     e.preventDefault();
                                     setIsModalOpen(true);
                                 }}
-                                className="bg-[#F9D000] text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-white transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(249,208,0,0.3)] capitalize cursor-pointer"
+                                className="bg-gradient-to-r from-[#F9D000] to-[#F2AA00] text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-white transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(249,208,0,0.3)] capitalize cursor-pointer"
                             >
                                 Get Started
                             </motion.button>
@@ -63,7 +63,7 @@ const FinalCTA = () => {
                                     e.preventDefault();
                                     window.location.href = '/';
                                 }}
-                                className="bg-[#F9D000] text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-white transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(249,208,0,0.3)] capitalize cursor-pointer"
+                                    className="bg-gradient-to-r from-[#F9D000] to-[#F2AA00] text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-white transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(249,208,0,0.3)] capitalize cursor-pointer"
                             >
                                 Go to Home Page
                             </motion.button>

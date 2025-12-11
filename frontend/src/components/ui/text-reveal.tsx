@@ -32,8 +32,8 @@ export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
     // Outer full-viewport section (does not increase page height)
     <div ref={containerRef} className={cn("relative z-0 w-full md:h-screen", className)}>
       {/* sticky inner keeps text pinned while the page scrolls */}
-      <div className={"sticky top-0 mx-auto flex h-screen w-full items-center bg-transparent md:px-6 md:py-12 overflow-hidden"}>
-        <span className={"flex flex-wrap gap-2 text-[10px] font-bold text-neutral-300 md:text-2xl lg:text-2xl xl:text-4xl justify-center items-center"}>
+      <div className={"sticky top-0 mx-auto flex h-screen w-full items-center bg-transparent p-6 md:px-6 md:py-12 overflow-hidden"}>
+        <span className={"flex flex-wrap gap-2 text-[15px] font-bold text-neutral-300 md:text-2xl lg:text-2xl xl:text-4xl md:justify-center md:items-center"}>
           {words.map((word, i) => {
             const start = i / words.length
             const end = start + 1 / words.length
@@ -51,7 +51,6 @@ export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
   )
 }
 
-// ...existing code...
 
 const Word: FC<WordProps> = ({ children, progress, range }) => {
   const opacity = useTransform(progress, range, [0, 1])
@@ -61,7 +60,7 @@ const Word: FC<WordProps> = ({ children, progress, range }) => {
       <span className="absolute inset-0 opacity-30 text-neutral-500">{children}</span>
       <motion.span
         style={{ opacity, y }}
-        className={"relative inline-block text-[#F9D000]"}
+        className={"relative inline-block bg-gradient-to-r from-[#F9D000] to-[#F2AA00] bg-clip-text text-transparent"}
       >
         {children}
       </motion.span>

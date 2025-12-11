@@ -106,7 +106,7 @@ const Footer = () => {
                                     rel="noopener noreferrer"
                                     aria-label={item.name}
                                     className="w-12 h-12 flex items-center justify-center rounded-2xl 
-                           bg-black text-white hover:text-black hover:bg-[#F9D000] 
+                           bg-black text-white hover:text-black hover:bg-gradient-to-r hover:from-[#F9D000] hover:to-[#F2AA00] 
                            transition duration-300 shadow-md"
                                 >
                                     <item.icon className="w-6 h-6" />

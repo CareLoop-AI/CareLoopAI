@@ -33,7 +33,7 @@ interface ApiResponse {
 const BotButton: React.FC<BotButtonProps> = ({ onClick, isOpen }) => {
     return (
         <motion.div
-            className="fixed bottom-4 right-6 md:right-20 z-50"
+            className="fixed bottom-4 right-6 md:right-20 z-50 "
             whileHover={{ scale: 1.1, rotate: 10 }}
             whileTap={{ scale: 0.9 }}
             initial={{ opacity: 0, y: 100 }}
@@ -43,11 +43,10 @@ const BotButton: React.FC<BotButtonProps> = ({ onClick, isOpen }) => {
             <Button
                 onClick={onClick}
                 size="icon"
-                className="h-12 w-12 rounded-full relative overflow-hidden 
-bg-gradient-to-b from-[#00B6C7]  to-[#F9D000] 
-transition-all duration-300 text-white hover:shadow-indigo-500/50"
+                className="p-6 rounded-full relative overflow-hidden 
+bg-black shadow-lg transition-all duration-300 text-white hover:shadow-indigo-500/50 border-2 border-[#F9D000]"
             >
-                {isOpen ? <X className="h-6 w-6" /> : <Bot className="h-full w-full" />}
+                {isOpen ? <X className="h-6 w-6" /> : <Bot className="h-full w-full " />}
             </Button>
         </motion.div>
     );
@@ -170,7 +169,7 @@ const ChatbotPopover: React.FC = () => {
                     >
                         <Card className="h-[500px] p-0 flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 shadow-2xl rounded-3xl overflow-hidden border-none">
                             {/* Header */}
-                            <CardHeader className="bg-gradient-to-r from-[#005C9E]  to-[#F9D000] p-5 relative overflow-hidden">
+                            <CardHeader className="bg-gray-800 p-5 relative overflow-hidden">
                                 <div className="absolute inset-0 bg-black/10" />
                                 <div className="relative z-10 flex items-center justify-between">
                                     <div className="flex items-center gap-3">
@@ -213,7 +212,7 @@ const ChatbotPopover: React.FC = () => {
                                         animate={{ opacity: 1 }}
                                         className="flex gap-3 mb-4"
                                     >
-                                        <Avatar className="h-8 w-8 bg-gradient-to-r from-[#005C9E]  to-[#F9D000]">
+                                        <Avatar className="h-8 w-8 bg-gradient-to-b from-[#0339fd]  to-[#4096ec]">
                                             <AvatarFallback className="bg-transparent">
                                                 <Bot className="h-5 w-5 text-white" />
                                             </AvatarFallback>
@@ -244,7 +243,7 @@ const ChatbotPopover: React.FC = () => {
                                             onClick={() => handleSendMessage()}
                                             disabled={!input.trim() || isLoading}
                                             size="icon"
-                                            className="bg-gradient-to-r from-[#005C9E]  to-[#F9D000] text-white rounded-xl shadow-lg hover:shadow-indigo-500/50 transition-all duration-200"
+                                            className="bg-gradient-to-b from-[#0339fd]  to-[#4096ec] text-white rounded-xl shadow-lg hover:shadow-indigo-500/50 transition-all duration-200"
                                         >
                                             <Send className="h-5 w-5" />
                                         </Button>
