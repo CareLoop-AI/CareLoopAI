@@ -174,7 +174,7 @@ const HeroSection = () => {
                         >
                             <div
                                 className="flex-1 px-6 py-4 
-        bg-gradient-to-r from-[#005C9E] to-[#F9D000] 
+        bg-gradient-to-r from-[#F9D000] to-[#F2AA00] 
         text-white font-semibold rounded-full
         shadow-[0_0_20px_rgba(249,208,0,0.35)] 
         backdrop-blur-sm border-2 border-yellow-300/50

@@ -1,28 +1,10 @@
 import { motion } from "framer-motion";
-import { TextReveal } from "../ui/text-reveal";
 
 const CommunityGallery = () => {
     return (
         <section className="px-6 md:px-20 py-24 bg-black relative">
-            {/* Text Header Content */}
-            <div className="md:max-w-4xl lg:max-w-5xl xl:max-w-6xl mx-auto text-center mb-2 md:mb-46">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                >
-                    <TextReveal className="text-neutral-300 font-sans font-bold capitalize leading-relaxed">
-                        With CareLoop AI comprehensive suite of features, your personal health management reaches new heights of efficiency.
-                        By integrating chat-based medicine ordering with intelligent helper delegation,
-                        we ensure that no prescription goes unfilled and no urgent need goes unmet. From instant doctor consultations to automated
-                        substitute suggestions, every tool is designed to streamline your daily wellness journey.
-                    </TextReveal>
-                </motion.div>
-            </div>
-
             {/* Masonry Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-12 md:grid-rows-6 gap-10 h-auto md:h-[720px]">
-
+            <div className="grid grid-cols-1 md:grid-cols-12 md:grid-rows-6 gap-10 h-auto md:h-[720px] max-w-[90rem] mx-auto">
                 {/* Left Column (2 stacked images, each spans 3 rows) */}
                 <div className="md:col-span-3 md:row-span-6 flex flex-col gap-6">
                     <motion.div

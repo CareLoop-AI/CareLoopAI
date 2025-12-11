@@ -43,6 +43,7 @@ interface Project {
     src: string;
     link: string;
     color: string;
+    cta: { label: string; href: string};
 }
 
 
@@ -54,6 +55,7 @@ export const projects: Project[] = [
         src: "./are_you_doctor.webp",
         link: "https://imgs.search.brave.com/CPJGjOcuwnf_mtDxB3c7bcdzbY0QOSaHXFINX72oMXM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMjIz/MzA5NzEyMC9waG90/by9haS10aGVyYXB5/LWNoYXQtYXBwLW9u/LXNtYXJ0cGhvbmUt/Zm9yLW1lbnRhbC1o/ZWFsdGgtc3VwcG9y/dC1lbW90aW9uYWwt/d2VsbGJlaW5nLWFz/c2lzdGFudC5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9am1X/SDBjWERqazdTMWNK/UV85ZWw5c0J2ZzVN/RVh1Mmx1MnYtbm1S/TjJGdz0",
         color: "#5196fd",
+        cta: { label: "Learn More", href: "#" }
     },
     {
         title: "MEDICINE ORDERING & DELIVERY",
@@ -62,6 +64,7 @@ export const projects: Project[] = [
         src: "house.jpg",
         link: "https://imgs.search.brave.com/_HWMQ1TkVleVSuteOhNJjtdstv4zEsy7zgiYy13SxRk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQ3/NDc3MDk2Ni9waG90/by9kZWxpdmVyeS1w/ZXJzb24tZGVsaXZl/cmluZy1tZWRpY2lu/ZS10by13b21hbi5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/QWJqRV9Ydmt0cjRN/RUNaQXFIcmpkU2hW/aVJYUHphUXZFSDdj/bkpCVHhVMD0",
         color: "#ed649e",
+        cta: { label: "Order Now", href: "#" }
     },
     {
         title: "INSTANT DOCTOR CONSULTATION",
@@ -70,6 +73,7 @@ export const projects: Project[] = [
         src: "tree.jpg",
         link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308688/are_you_doctor_ue1ewh.webp",
         color: "#8f89ff",
+        cta: { label: "Consult Now", href: "#" }
     },
     {
         title: "HEALTH TESTS & DIAGNOSTICS",
@@ -78,6 +82,7 @@ export const projects: Project[] = [
         src: "water.jpg",
         link: "https://imgs.search.brave.com/wd68U8yWGrx1tYSps4l9980lIAeR47D_TPfcLMa1mpw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS12ZWN0/b3IvYmxvb2QtdGVz/dF83NzMxODYtMTQx/MC5qcGc_c2VtdD1h/aXNfaW5jb21pbmcm/dz03NDAmcT04MA",
         color: "#13006c",
+        cta: { label: "Book Test", href: "#" }
     },
     {
         title: "SMART REMINDER SYSTEM",
@@ -86,6 +91,7 @@ export const projects: Project[] = [
         src: "cactus.jpg",
         link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308692/unnamed_ifekqd.jpg",
         color: "#fd521a",
+        cta: { label: "Enable Reminders", href: "#" }
     },
     {
         title: "HEALTH COMMUNITY & REWARDS",
@@ -94,5 +100,6 @@ export const projects: Project[] = [
         src: "cactus.jpg",
         link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308690/community_rewards_pyocdu.jpg",
         color: "#fd521a",
+        cta: { label: "Join Community", href: "#" }
     },
 ];
