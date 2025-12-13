@@ -259,7 +259,7 @@ const HeroGrid = () => {
                                 </motion.div>
                             </AnimatePresence>
 
-                            <button className="mt-8 group flex items-center gap-2 text-white border border-neutral-700 rounded-full px-6 py-3 w-fit hover:bg-gradient-to-r hover:from-[#F9D000] hover:to-[#F2AA00] hover:text-black hover:border-[#F9D000] transition-all">
+                            <button className="mt-8 group flex items-center gap-2 text-white border border-neutral-700 rounded-full px-6 py-3 w-fit hover:bg-gradient-to-r hover:from-[#F9D000] hover:to-[#F2AA00] hover:text-black hover:border-[#F9D000] transition-all cursor-not-allowed">
                                 <span>Explore Now</span>
                                 <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                             </button>

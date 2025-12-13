@@ -13,10 +13,10 @@ function App() {
 
   return (
     <ReactLenis root options={{ duration: 1.2 }}>
-      <main className=" bg-black ">
+      <main className=" bg-black">
         {/* Particles should be fixed so they cover the whole viewport and stay behind content */}
         <Particles className="fixed inset-0 h-screen w-screen pointer-events-none z-0" />
-        <article className="relative z-10">
+        <article className="relative z-10 ">
           <section className='text-white m-h-screen w-full bg-transparent grid place-content-center sticky top-0'>
             <HeroSection />
           </section>
