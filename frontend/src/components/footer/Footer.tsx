@@ -31,8 +31,8 @@ const Footer = () => {
     const words = text.split(" ");
 
     return (
-        <footer className="w-full bg-black text-white overflow-hidden relative inset-0 z-50">
-            <div className=" px-4 sm:px-6 lg:px-8 py-12 md:py-14 relative">
+        <footer className="bg-black text-white overflow-hidden relative inset-0 z-50">
+            <div className=" px-4 sm:px-6 lg:px-8 py-12 md:py-14 relative max-w-[90rem] mx-auto">
                 {/* Top Section: Navigation and CTA/Newsletter */}
                 <div className="flex flex-wrap gap-8 mx-auto justify-between items-center mb-20">
                     {/* Column 1 & 2: Navigation Links */}
@@ -139,7 +139,7 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Section: Copyright and Legal Links */}
-                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between text-gray-400 pt-6 border-t-3 border-gray-500">
+                <div className="relative mt-[-18px] md:mt-[-40px] bg-black z-10 flex flex-col md:flex-row items-center justify-between text-gray-400 pt-6 border-t-3 border-gray-500">
                     <p className="text-sm order-2 md:order-1 mt-4 md:mt-0">
                         &copy; {currentYear} CareLoop. All rights reserved.
                     </p>
