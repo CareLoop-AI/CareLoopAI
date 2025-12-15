@@ -213,3 +213,97 @@ body {
   background: var(--accent-2);
   color: #000;
 }
+
+/* loader.css */
+
+/* ===== Overlay Loader ===== */
+.loader-effect {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: transparent;
+
+  mask: repeating-linear-gradient(90deg,
+      transparent 0,
+      transparent 6px,
+      black 7px,
+      black 8px);
+}
+
+.loader-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(circle at 50% 50%, #f9d000 0%, transparent 50%),
+    radial-gradient(circle at 45% 45%, #f97316 0%, transparent 45%),
+    radial-gradient(circle at 55% 55%, #22d3ee 0%, transparent 45%),
+    radial-gradient(circle at 45% 55%, #22c55e 0%, transparent 45%),
+    radial-gradient(circle at 55% 45%, #3b82f6 0%, transparent 45%);
+
+  mask: radial-gradient(circle at 50% 50%,
+      transparent 0%,
+      transparent 10%,
+      black 25%);
+
+  animation:
+    transform-animation 2s infinite alternate,
+    opacity-animation 4s infinite;
+  animation-timing-function: cubic-bezier(0.6, 0.8, 0.5, 1);
+}
+
+/* ===== Text Animation ===== */
+.loader-letter {
+  display: inline-block;
+  opacity: 0;
+  z-index: 2;
+  animation: loader-letter-anim 4s infinite linear;
+}
+
+/* ===== Keyframes ===== */
+@keyframes transform-animation {
+  0% {
+    transform: translateX(-55%);
+  }
+
+  100% {
+    transform: translateX(55%);
+  }
+}
+
+@keyframes opacity-animation {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  65% {
+    opacity: 0;
+  }
+}
+
+@keyframes loader-letter-anim {
+  0% {
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+    text-shadow: 0 0 6px white;
+    transform: scale(1.1) translateY(-2px);
+  }
+
+  20% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

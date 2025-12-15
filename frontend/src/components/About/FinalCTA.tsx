@@ -7,41 +7,61 @@ const FinalCTA = () => {
     const [isModelOpen, setIsModalOpen] = useState(false);
     const [logedinUser, setLogedinUser] = useState(false);
 
+
     useEffect(() => {
         if (isAuthenticated()) {
             setLogedinUser(true);
         }
-    }, [logedinUser])
+    }, []);
+
     return (
-        <div className="relative bg-black pt-10 pb-20 ">
-            <div className="relative max-w-[90rem] mx-auto overflow-hidden rounded-3xl md:rounded-tr-[20rem] md:rounded-bl-[20rem] bg-gradient-to-r from-[#005C9E]  to-[#F9D000] border border-neutral-800">
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#F9D000] opacity-5 blur-[100px] pointer-events-none" />
-
-                <div className="px-6 py-20 md:py-32 flex flex-col items-center text-center relative z-10">
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-4xl md:text-6xl font-bold text-white mb-6"
+        <section className="bg-black py-24 relative overflow-hidden">
+            <div className="max-w-[85rem] mx-auto px-6">
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ staggerChildren: 0.15 }}
+                    className=" relative rounded-[3.5rem] bg-[#ffdd31b9] px-10 md:px-20 py-16 md:py-24 flex flex-col lg:flex-row items-center justify-between gap-16"
+                >
+                    {/* LEFT CONTENT */}
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, x: -140 },
+                            visible: {
+                                opacity: 1,
+                                x: 0,
+                                transition: {
+                                    duration: 0.9,
+                                    ease: [0.22, 1, 0.36, 1], 
+                                },
+                            },
+                        }}
+                        className="max-w-2xl"
                     >
-                        Why don't you start today?
-                    </motion.h2>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-4xl md:text-6xl font-bold text-white mb-6"
+                        >
+                            Why don't you start today?
+                        </motion.h2>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="text-neutral-400 max-w-2xl mb-10 text-lg font-sans font-bold"
-                    >
-                        With the full CareLoop ecosystem, your community health planning can reach new heights of efficiency.
-                        Join the network that keeps every delivery local and fast.
-                    </motion.p>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="text-neutral-300 max-w-xl mb-10 text-lg font-sans font-bold"
+                        >
+                            With the full CareLoop ecosystem, your community health planning can reach new heights of efficiency.
+                            Join the network that keeps every delivery local and fast.
+                        </motion.p>
 
-                    {
-                        !logedinUser ? (
+                        {!logedinUser ? (
                             <motion.button
-                                initial={{ opacity: 0, scale: 0.9 }}
+                                initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
@@ -49,30 +69,66 @@ const FinalCTA = () => {
                                     e.preventDefault();
                                     setIsModalOpen(true);
                                 }}
-                                className="bg-gradient-to-r from-[#F9D000] to-[#F2AA00] text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-white transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(249,208,0,0.3)] capitalize cursor-pointer"
+                                className="bg-black hover:bg-gradient-to-r from-[#F9D000] to-[#F2AA00] text-white hover:text-black px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(249,208,0,0.3)] cursor-pointer"
                             >
                                 Get Started
                             </motion.button>
                         ) : (
                             <motion.button
-                                initial={{ opacity: 0, scale: 0.9 }}
+                                initial={{ opacity: 0, scale: 0.95 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    window.location.href = '/';
+                                    window.location.href = "/";
                                 }}
-                                    className="bg-gradient-to-r from-[#F9D000] to-[#F2AA00] text-black px-10 py-4 rounded-xl font-bold text-lg hover:bg-white transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(249,208,0,0.3)] capitalize cursor-pointer"
+                                className="
+                                    bg-gradient-to-r
+                                    from-[#F9D000]
+                                    to-[#F2AA00]
+                                    text-black
+                                    px-10
+                                    py-4
+                                    rounded-xl
+                                    font-bold
+                                    text-lg
+                                    transition-all
+                                    duration-300
+                                    hover:scale-105
+                                    shadow-[0_0_20px_rgba(249,208,0,0.3)]
+                                "
                             >
                                 Go to Home Page
                             </motion.button>
-                        )
-                    }
-                </div>
+                        )}
+                    </motion.div>
+                    {/* RIGHT IMAGE */}
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, x: 140 },
+                            visible: {
+                                opacity: 1,
+                                x: 0,
+                                transition: {
+                                    duration: 0.9,
+                                    ease: [0.22, 1, 0.36, 1],
+                                },
+                            },
+                        }}
+                        className="w-full max-w-md"
+                    >
+                        <img
+                            src="https://res.cloudinary.com/dvkvr88db/image/upload/v1765785856/gettyimages-1386963076-612x612_casu0g.jpg"
+                            alt=""
+                            className="w-full h-full object-cover rounded-[2.5rem] shadow-xl"
+                        />
+                    </motion.div>
+                </motion.div>
             </div>
+
             <LoginModel setIsModalOpen={setIsModalOpen} isModalOpen={isModelOpen} />
-        </div>
+        </section>
     );
 };
 

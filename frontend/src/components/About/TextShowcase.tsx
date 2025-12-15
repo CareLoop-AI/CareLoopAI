@@ -1,9 +1,13 @@
 import { motion } from "framer-motion"
 import { TextReveal } from "../ui/text-reveal"
+import { useRef } from "react";
+import FloatingObjectsCanvas from "../Models/FloatingObjectsCanvas";
 
 const TextShowcase = () => {
+    const mainRef = useRef(null);
     return (
-        <div className="md:max-w-4xl lg:max-w-5xl xl:max-w-7xl mx-auto text-center">
+        <div ref={mainRef} className="md:max-w-4xl lg:max-w-5xl xl:max-w-7xl mx-auto text-center relative">
+            <FloatingObjectsCanvas containerRef={mainRef} />
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
