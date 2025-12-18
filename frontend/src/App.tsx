@@ -22,12 +22,10 @@ function App() {
         <ReactLenis root options={{ duration: 1.2 }}>
           <main className="bg-black">
             <Particles className="fixed inset-0 h-screen w-screen pointer-events-none z-0" />
-
             <article className="relative z-10">
               <section className="text-white min-h-screen w-full grid place-content-center sticky top-0">
                 <HeroSection />
               </section>
-
               <section className="text-white w-full bg-black relative z-50">
                 <AboutSection />
                 <CoreVision />

@@ -46,7 +46,7 @@ const Footer = () => {
                                             <li key={link}>
                                                 <a
                                                     href="#"
-                                                    className="text-sm text-gray-400 hover:text-white transition duration-150"
+                                                    className={`text-sm text-gray-400 hover:text-white transition duration-150 cursor-not-allowed`}
                                                     onClick={(e) => e.preventDefault()}
                                                 >
                                                     {link}
@@ -63,17 +63,23 @@ const Footer = () => {
                                 <div key={section.title} className="space-y-2">
                                     <h4 className="text-sm font-bold text-white uppercase tracking-wider">{section.title}</h4>
                                     <ul className="space-y-1 mt-3">
-                                        {section.links.map((link) => (
+                                        {section.links.map((link, index) => (
                                             <li key={link}>
                                                 <a
-                                                    href="#"
-                                                    className="text-sm text-gray-400 hover:text-white transition duration-150"
-                                                    onClick={(e) => e.preventDefault()}
+                                                    href={index === 0 ? "#features" : "#"}
+                                                    className={`text-sm transition duration-150 text-gray-400 hover:text-white
+        ${index === 0
+                                                            ? " cursor-pointer"
+                                                            : " cursor-not-allowed"}`}
+                                                    onClick={(e) => {
+                                                        if (index !== 0) e.preventDefault();
+                                                    }}
                                                 >
                                                     {link}
                                                 </a>
                                             </li>
                                         ))}
+
                                     </ul>
                                 </div>
                             ))}
@@ -90,7 +96,7 @@ const Footer = () => {
                                     name: "Twitter", url: "https://x.com/CareLoopAI", icon: X
                                 },
                                 {
-                                    name: "LinkedIn", url: "https://linkedin.com/", icon: Linkedin
+                                    name: "LinkedIn", url: "https://www.linkedin.com/in/careloop-ai-67766b392/", icon: Linkedin
                                 },
                                 {
                                     name: "Instagram", url: "https://instagram.com/", icon: Instagram
@@ -129,7 +135,7 @@ const Footer = () => {
                             <motion.span
                                 key={i}
                                 variants={wordVariants}
-                                className={`inline-block ${i > 0 ? "ml-2" : ""}`}
+                                className={`inline-block ${i > 0 ? "ml-2" : ""} ${i > 3 ? "text-[#F9D000]" : ""}`} // Highlight last letters
                                 aria-hidden
                             >
                                 {word}
@@ -144,8 +150,8 @@ const Footer = () => {
                         &copy; {currentYear} CareLoop. All rights reserved.
                     </p>
                     <div className="flex space-x-4 text-sm order-1 md:order-2">
-                        <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-white transition duration-150">Privacy Policy</a>
-                        <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-white transition duration-150">Cookies Policy</a>
+                        <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-white transition duration-150 cursor-not-allowed">Privacy Policy</a>
+                        <a href="#" onClick={(e) => e.preventDefault()} className="hover:text-white transition duration-150 cursor-not-allowed">Cookies Policy</a>
                         <p className="text-gray-500">Website by <span className="text-white hover:text-[#EBF742] transition duration-150 cursor-pointer">- CareLoopAI</span></p>
                     </div>
                 </div>
