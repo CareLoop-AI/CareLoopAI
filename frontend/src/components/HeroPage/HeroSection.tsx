@@ -81,30 +81,33 @@ const HeroSection = () => {
 
                 {/* Main Headline */}
                 <motion.h1
-                    className="text-4xl sm:text-5xl lg:text-5xl xl:text-[4rem] font-black mb-2 mt-20 leading-tight"
+                    className="text-3xl sm:text-5xl lg:text-5xl xl:text-[4rem] font-black mb-4 mt-20 leading-tight"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}
                 >
-                    <span className="text-white">Your Local </span>
-                    <span className="text-[#F9D000]">Health Companion:</span>
-                    <span className="text-white"> Access Care,Medicine, and Human Help </span>
-                    <span className="text-white">—</span>
-                    <span className="text-[#F9D000]"> Effortlessly.</span>
+                    <span className="text-white">Care</span>
+                    <span className="text-[#F9D000]">Loop </span>
+                    <span className="text-white">AI — Your Local </span>
+                    <span className="text-[#F9D000]">Health</span>
+                    <span className="text-white"> & </span>
+                    <span className="text-[#F9D000] "> Pharmacy </span>
+                    <span className="text-white">Network,</span>
+                    <span className="text-white"> Powered by </span>
+                    <span className="text-[#F9D000]">AI.</span>
                 </motion.h1>
 
                 {/* Subheadline */}
                 <motion.p
-                    className="text-base sm:text-lg lg:text-xl text-gray-400 mb-6 max-w-4xl leading-relaxed"
+                    className="text-base text-[15px] md:text-lg lg:text-xl text-gray-400 mb-6 max-w-4xl leading-relaxed"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.8 }}
                     style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}
                 >
-                    Chat instantly to order from local pharmacies. Our community helper network ensures
-                    <br className="hidden sm:block" />
-                    fast delivery, while AI helps you stay proactive with daily wellness.
+                    CareLoop AI connects people with nearby pharmacies and simplifies online medicine ordering.
+                    Users get smart health support, while pharmacies grow online with AI — without high commissions.
                 </motion.p>
 
                 <motion.div
@@ -116,7 +119,7 @@ const HeroSection = () => {
                     <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-3 py-2 md:px-5 md:py-3 rounded-full border border-white/20 shadow-xl">
                         <div className="text-2xl">📋</div>
                         <div className="text-left">
-                            <div className="text-orange-400 font-bold text-sm">AI Prescription</div>
+                            <div className="text-orange-400 font-bold text-[12px] md:text-sm">AI Prescription</div>
                             <div className="text-gray-300 text-xs font-medium">Validation</div>
                         </div>
                     </div>
@@ -124,7 +127,7 @@ const HeroSection = () => {
                     <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-3 py-2 md:px-5 md:py-3 rounded-full border border-white/20 shadow-xl">
                         <div className="text-2xl">📍</div>
                         <div className="text-left">
-                            <div className="text-pink-400 font-bold text-sm">Local Helper</div>
+                            <div className="text-pink-400 font-bold text-[12px] md:text-sm">Local Pharmacy</div>
                             <div className="text-gray-300 text-xs font-medium">Network</div>
                         </div>
                     </div>
@@ -132,7 +135,7 @@ const HeroSection = () => {
                     <div className="flex items-center space-x-3 bg-black/60 backdrop-blur-md px-3 py-2 md:px-5 md:py-3 rounded-full border border-white/20 shadow-xl">
                         <div className="text-2xl">💜</div>
                         <div className="text-left">
-                            <div className="text-purple-400 font-bold text-sm">Personalized</div>
+                            <div className="text-purple-400 font-bold text-[12px] md:text-sm">Personalized</div>
                             <div className="text-gray-300 text-xs font-medium">Wellness Tips</div>
                         </div>
                     </div>

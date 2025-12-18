@@ -49,45 +49,63 @@ interface Project {
 
 export const projects: Project[] = [
     {
-        title: "AI-DRIVEN CARE CHAT",
+        title: "AI CARE CHAT FOR DAILY HEALTH",
         description:
-            "Access instant, chat-based guidance for daily wellness, skin care advice, and routine suggestions (e.g., 'Suggest a daily routine for better sleep.'). Our assistant provides verified care advice and connects you to local specialists when needed.",
+            "Get instant, chat-based help for everyday health needs like sleep, skin care, stress, or diet. Ask simple questions and receive AI-powered guidance that’s easy to understand and practical to follow. When needed, the system also helps you connect with nearby doctors or health professionals for real human support.",
         src: "./are_you_doctor.webp",
-        link: "https://imgs.search.brave.com/CPJGjOcuwnf_mtDxB3c7bcdzbY0QOSaHXFINX72oMXM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMjIz/MzA5NzEyMC9waG90/by9haS10aGVyYXB5/LWNoYXQtYXBwLW9u/LXNtYXJ0cGhvbmUt/Zm9yLW1lbnRhbC1o/ZWFsdGgtc3VwcG9y/dC1lbW90aW9uYWwt/d2VsbGJlaW5nLWFz/c2lzdGFudC5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9am1X/SDBjWERqazdTMWNK/UV85ZWw5c0J2ZzVN/RVh1Mmx1MnYtbm1S/TjJGdz0",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1766059094/AI_Chat_ebfl9n.png",
         color: "#5196fd",
         cta: { label: "Learn More", href: "#" }
     },
     {
-        title: "MEDICINE ORDERING & DELIVERY",
+        title: "LOCAL MEDICINE ORDERING & DELIVERY",
         description:
-            "Order medicines simply through chat. Our smart system instantly routes requests to local pharmacies for fast acceptance and delivery. If a pharmacy cannot deliver, our local helper network steps in to ensure hyperlocal, reliable fulfillment.",
+            "Order medicines easily through chat without searching multiple apps or stores. Our system finds nearby pharmacies based on availability, so orders are accepted faster. If delivery isn’t possible from a store, our local helper network ensures your medicines still reach you reliably and on time.",
         src: "house.jpg",
-        link: "https://imgs.search.brave.com/_HWMQ1TkVleVSuteOhNJjtdstv4zEsy7zgiYy13SxRk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQ3/NDc3MDk2Ni9waG90/by9kZWxpdmVyeS1w/ZXJzb24tZGVsaXZl/cmluZy1tZWRpY2lu/ZS10by13b21hbi5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/QWJqRV9Ydmt0cjRN/RUNaQXFIcmpkU2hW/aVJYUHphUXZFSDdj/bkpCVHhVMD0",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1766059095/delivary_blkmqu.png",
         color: "#ed649e",
         cta: { label: "Order Now", href: "#" }
     },
     {
         title: "INSTANT DOCTOR CONSULTATION",
         description:
-            "Connect instantly with verified local or online doctors via video, audio, or text chat. Prescriptions are automatically stored and synced in your app, enabling instant ordering and follow-up reminders for checkups or lab tests.",
+            "Connect quickly with verified doctors through video, audio, or chat for common health concerns. Prescriptions are securely saved in your app, making medicine ordering simple and hassle-free. You also receive reminders for follow-ups, tests, or future consultations without needing to remember everything yourself.",
         src: "tree.jpg",
-        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308688/are_you_doctor_ue1ewh.webp",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1766060312/consultant_keb7ec.png",
         color: "#8f89ff",
         cta: { label: "Consult Now", href: "#" }
     },
     {
-        title: "HEALTH TESTS & DIAGNOSTICS",
+        title: "HEALTH TIPS FROM LOCAL PHARMACISTS",
         description:
-            "Book essential blood, urine, and health tests directly through the chat interface. We coordinate sample pickup by our local helper network. Receive digital reports in the app with AI-powered insights that highlight abnormal readings and offer preliminary advice.",
+            "Receive simple and trustworthy health tips directly from verified local pharmacists you already rely on. Pharmacists can share short videos or written guidance about medicine usage, precautions, and common doubts. This builds user trust while helping pharmacies earn through content views and grow locally.",
+        src: "pharmacist-content.jpg",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1766058915/Tips_rbxscu.png",
+        color: "#34c38f",
+        cta: { label: "Explore Tips", href: "#" }
+    },
+    {
+        title: "AI-POWERED HEALTH & MEDICINE INSIGHTS",
+        description:
+            "Our AI analyzes your medicine usage and health patterns to provide helpful insights at the right time. Get alerts like “You may need a refill soon” or “This medicine is used for X—be careful about Y.” These insights reduce confusion, prevent misuse, and support safer health decisions.",
+        src: "ai-insights.jpg",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1766058915/Insights_vnm9dr.png",
+        color: "#ff8c42",
+        cta: { label: "View Insights", href: "#" }
+    },
+    {
+        title: "HEALTH TESTS & DIAGNOSTICS AT HOME",
+        description:
+            "Book essential health tests like blood, urine, or routine checkups directly from the app. Sample collection is coordinated through trusted local partners for doorstep convenience. Test reports are delivered digitally, with AI insights highlighting important values so you understand what matters most.",
         src: "water.jpg",
-        link: "https://imgs.search.brave.com/wd68U8yWGrx1tYSps4l9980lIAeR47D_TPfcLMa1mpw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS12ZWN0/b3IvYmxvb2QtdGVz/dF83NzMxODYtMTQx/MC5qcGc_c2VtdD1h/aXNfaW5jb21pbmcm/dz03NDAmcT04MA",
+        link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1766060507/ChatGPT_Image_Dec_18_2025_05_51_21_PM_nhfwdf.png",
         color: "#13006c",
         cta: { label: "Book Test", href: "#" }
     },
     {
-        title: "SMART REMINDER SYSTEM",
+        title: "SMART MEDICINE & HEALTH REMINDERS",
         description:
-            "Our AI intelligently tracks and reminds users for critical health actions: timely medicine intake, scheduling reorders, upcoming regular health checkups, or even gentle hydration alerts to keep you proactive about your health.",
+            "Never miss a dose, refill, or health check again. Our AI tracks your medicines and sends timely reminders for intake, reordering, and upcoming appointments. Even small habits like hydration or daily wellness checks are gently nudged to help you stay consistent and healthy.",
         src: "cactus.jpg",
         link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308692/unnamed_ifekqd.jpg",
         color: "#fd521a",
@@ -96,7 +114,7 @@ export const projects: Project[] = [
     {
         title: "HEALTH COMMUNITY & REWARDS",
         description:
-            "Earn 'Healthy Points' for positive actions like timely medicine intake and completing health challenges. Access a community feed to share local health camps and receive pharmacy rewards, fostering a connected, community-driven ecosystem.",
+            "Stay motivated with a community-driven health experience. Earn reward points for healthy actions like taking medicines on time or completing wellness goals. Discover nearby health camps, pharmacy offers, and local initiatives while being part of a supportive and trusted health community.",
         src: "cactus.jpg",
         link: "https://res.cloudinary.com/dvkvr88db/image/upload/v1764308690/community_rewards_pyocdu.jpg",
         color: "#fd521a",
