@@ -49,8 +49,8 @@ export const Navbar = ({ setIsModalOpen }: { setIsModalOpen: (isOpen: boolean) =
                 <div className="flex items-center">
                     <div className="flex justify-center items-center">
                         <img src="https://res.cloudinary.com/dvkvr88db/image/upload/v1764308690/logo_qbqijt.png" alt="" className='w-12 h-12' />
-                        <h1 className="text-3xl font-extrabold tracking-tight text-white">
-                            Care<span className="text-[#F9D000]">Loop</span> AI
+                        <h1 className="hidden md:block text-3xl font-extrabold tracking-tight text-white">
+                            Care<span className="text-[#F9D000]">Loop</span>
                         </h1>
                     </div>
                 </div>
